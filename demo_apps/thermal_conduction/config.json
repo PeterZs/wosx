@@ -1,0 +1,29 @@
+{
+    "deviceBackend": "cuda",
+    "solver": {
+        "nWalks": 100,
+        "maxWalkLength": 25000,
+        "epsilonShellForAbsorbingBoundary": 1e-3,
+        "epsilonShellForReflectingBoundary": 1e-3,
+        "russianRouletteThreshold": 0.99,
+        "disablePersistentThreads": false,
+        "printLogs": false
+    },
+    "problem": {
+        "geometry": "data/rover.obj",
+        "robinValueTexture": "data/robin_value.png",
+        "robinCoefficientTexture": "data/robin_coefficient.png",
+        "cameraView": "data/camera_view_0.json",
+        "cameraWidth": 256,
+        "cameraHeight": 256
+    },
+    "output": {
+        "visualizeSetup": true,
+        "cameraView": "data/camera_view_out.json",
+        "solutionFile": "solutions/solution_0.png",
+        "saveColormapped": true,
+        "colormap": "plasma",
+        "colormapMinVal": 0.0,
+        "colormapMaxVal": 1.0
+    }
+}

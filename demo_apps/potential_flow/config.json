@@ -1,0 +1,29 @@
+{
+    "deviceBackend": "cuda",
+    "solver": {
+        "reflectingBoundaryCacheSize": 25000,
+        "nWalksForCachedSolutionEstimates": 25,
+        "maxWalkLength": 10000,
+        "epsilonShellForAbsorbingBoundary": 1e-3,
+        "epsilonShellForReflectingBoundary": 1e-3,
+        "russianRouletteThreshold": 0.99,
+        "radiusClampForKernels": 0.0,
+        "regularizationForKernels": 0.0,
+        "disablePersistentThreads": false,
+        "printLogs": false
+    },
+    "problem": {
+        "geometry": "data/whale.obj",
+        "freestreamSpeed": 5.0,
+        "freestreamAngle": 3.14159265359,
+        "sliceCropMinY": -0.65,
+        "sliceCropMaxY": 0.65
+    },
+    "output": {
+        "visualizeSetup": true,
+        "flowFile": "solutions/flow.png",
+        "perturbationPotentialColormap": "coolwarm",
+        "perturbationPotentialColormapMinVal": -0.75,
+        "perturbationPotentialColormapMaxVal": 0.75
+    }
+}

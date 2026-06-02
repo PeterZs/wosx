@@ -1,0 +1,28 @@
+{
+    "deviceBackend": "cuda",
+    "solver": {
+        "nWalks": 10,
+        "maxWalkLength": 1000,
+        "epsilonShellForAbsorbingBoundary": 1e-3,
+        "epsilonShellForReflectingBoundary": 1e-3,
+        "disablePersistentThreads": false,
+        "printLogs": false
+    },
+    "problem": {
+        "geometry": "data/mems-comb-electrodes.obj",
+        "movableCombVoltage": 75.0,
+        "nFrames": 120,
+        "sliceResolutionPow2": 8
+    },
+    "output": {
+        "visualizeProblem": true,
+        "electricPotentialFile": "solutions/electric_potential.png",
+        "electricFieldMagnitudeFile": "solutions/electric_field_magnitude.png",
+        "electricPotentialColormap": "plasma",
+        "electricPotentialColormapMinVal": 0.0,
+        "electricPotentialColormapMaxVal": 100.0,
+        "electricFieldMagnitudeColormap": "turbo",
+        "electricFieldMagnitudeColormapMinVal": 0.0,
+        "electricFieldMagnitudeColormapMaxVal": 250.0
+    }
+}

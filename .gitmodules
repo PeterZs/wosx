@@ -1,0 +1,18 @@
+[submodule "deps/nanoflann"]
+	path = deps/nanoflann
+	url = https://github.com/jlblancoc/nanoflann.git
+[submodule "deps/nanobind"]
+	path = deps/nanobind
+	url = https://github.com/wjakob/nanobind.git
+[submodule "deps/pcg32"]
+	path = deps/pcg32
+	url = https://github.com/wjakob/pcg32.git
+[submodule "deps/tbb"]
+	path = deps/tbb
+	url = https://github.com/uxlfoundation/oneTBB.git
+[submodule "demo_apps/deps/polyscope"]
+	path = demo_apps/deps/polyscope
+	url = https://github.com/nmwsharp/polyscope.git
+[submodule "deps/fcpw"]
+	path = deps/fcpw
+	url = https://github.com/rohan-sawhney/fcpw.git

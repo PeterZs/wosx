@@ -134,9 +134,14 @@ public struct SdfAbsorbingBoundaryGeometricQueries<SdfGrid, let DIM : int> :
         {
             vector<float, DIM> offset = vector<float, DIM>(0.0);
             offset[i] = cellSpacing[i];
-            float sdfMinus = sdfGrid(clampInGrid(x - offset));
-            float sdfPlus = sdfGrid(clampInGrid(x + offset));
-            gradient[i] = (sdfPlus - sdfMinus) / (2.0f * cellSpacing[i]);
+            vector<float, DIM> xMinus = clampInGrid(x - offset);
+            vector<float, DIM> xPlus = clampInGrid(x + offset);
+            float sdfMinus = sdfGrid(xMinus);
+            float sdfPlus = sdfGrid(xPlus);
+            // divide by the actual sample separation, which collapses to a one-sided
+            // difference (spacing instead of 2*spacing) when clamping near a grid face
+            float denom = xPlus[i] - xMinus[i];
+            gradient[i] = denom > 0.0 ? (sdfPlus - sdfMinus) / denom : 0.0;
         }
 
         return gradient;

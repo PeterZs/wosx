@@ -605,13 +605,14 @@ internal vector<float, DIM> rejectionSampleGreensFn<let DIM : int, GreensFn : IG
     vector<float, DIM> c = greensFn.getBallCenter();
     float R = greensFn.getBallRadius();
     float rClamp = greensFn.getRadiusClamp();
+    float fnNorm = greensFn.norm();
 
     uint iter = 0;
     do
     {
         float u = rng.nextFloat();
         r = rng.nextFloat() * R;
-        pdf = greensFn.evaluate(r) / greensFn.norm();
+        pdf = greensFn.evaluate(r) / fnNorm;
         float pdfRadius = pdf / greensFn.SphereSampler.pdfSampleSphereUniform(r);
         iter++;
 

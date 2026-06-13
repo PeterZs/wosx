@@ -121,7 +121,7 @@ public struct WalkOnSpheres<T, PDE, GeometricQueries, let DIM : int>
 
             // update the walk length and break if the max walk length is exceeded
             state.walkLength++;
-            if (state.walkLength > walkSettings.maxWalkLength)
+            if (state.walkLength >= walkSettings.maxWalkLength)
             {
                 return WalkCompletionCode::ExceededMaxWalkLength;
             }

@@ -28,5 +28,7 @@ void seedRngs(uint3 threadId: SV_DispatchThreadID,
         return;
     }
 
-    rngs[index].seed(randomSeeds[index]);
+    // use the thread index as the stream id so each rng draws from an independent
+    // sequence even if base seeds collide (mirrors the unique stream used on the CPU)
+    rngs[index].seed(randomSeeds[index], index);
 }

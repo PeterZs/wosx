@@ -317,11 +317,14 @@ nRngs(0)
 void GPUSeedRngs::allocate(GPUContext& context, uint32_t nRngs_)
 {
     auto generateRandomSeeds = [](uint32_t nRandomSeeds) -> std::vector<uint64_t> {
+        // read the clock once for the base state seed; each rng is decorrelated by a
+        // unique per-thread stream (the thread index) supplied in the seeding shader,
+        // so identical base states across threads still produce independent sequences
+        auto now = std::chrono::high_resolution_clock::now();
+        uint64_t baseSeed = std::chrono::duration_cast<std::chrono::nanoseconds>(now.time_since_epoch()).count();
         std::vector<uint64_t> randomSeeds(nRandomSeeds);
-        for (int i = 0; i < nRandomSeeds; i++) {
-            auto now = std::chrono::high_resolution_clock::now();
-            uint64_t seed = std::chrono::duration_cast<std::chrono::nanoseconds>(now.time_since_epoch()).count();
-            randomSeeds[i] = seed;
+        for (uint32_t i = 0; i < nRandomSeeds; i++) {
+            randomSeeds[i] = baseSeed + i;
         }
 
         return randomSeeds;

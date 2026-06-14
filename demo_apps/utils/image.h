@@ -19,10 +19,18 @@
 
 #pragma once
 
+// Emit the stb implementation only when WOSX_DEFINE_STB_IMPLEMENTATION is set
+// (the standalone demos that do not link polyscope). The polyscope-linked demos
+// already pull the stb implementation in via polyscope's stb library, so defining
+// it here as well would produce duplicate-symbol (LNK2005) link errors.
+#ifdef WOSX_DEFINE_STB_IMPLEMENTATION
 #define STB_IMAGE_IMPLEMENTATION
+#endif
 #include "stb_image.h"
 
+#ifdef WOSX_DEFINE_STB_IMPLEMENTATION
 #define STB_IMAGE_WRITE_IMPLEMENTATION
+#endif
 #include "stb_image_write.h"
 
 #include <Eigen/Core>

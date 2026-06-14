@@ -13,6 +13,8 @@ list(APPEND WOSX_DEMO_APPS_DEPS_INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}/utils)
 add_executable(basic_2d_demo basic_2d/demo.cpp)
 target_link_libraries(basic_2d_demo wosx)
 target_include_directories(basic_2d_demo PRIVATE ${WOSX_DEMO_APPS_DEPS_INCLUDES})
+# this demo does not link polyscope, so it must emit the stb implementation itself
+target_compile_definitions(basic_2d_demo PRIVATE WOSX_DEFINE_STB_IMPLEMENTATION)
 
 if(MSVC)
     target_compile_options(basic_2d_demo PRIVATE /bigobj)
@@ -23,6 +25,8 @@ if(WOSX_ENABLE_GPU_SUPPORT)
     add_executable(basic_2d_gpu_demo basic_2d/gpu_demo.cpp)
     target_link_libraries(basic_2d_gpu_demo wosx)
     target_include_directories(basic_2d_gpu_demo PRIVATE ${WOSX_DEMO_APPS_DEPS_INCLUDES})
+    # this demo does not link polyscope, so it must emit the stb implementation itself
+    target_compile_definitions(basic_2d_gpu_demo PRIVATE WOSX_DEFINE_STB_IMPLEMENTATION)
 
     add_executable(electrostatics electrostatics/app.cpp)
     target_link_libraries(electrostatics wosx polyscope)

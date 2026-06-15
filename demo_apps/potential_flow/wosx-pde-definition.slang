@@ -62,6 +62,12 @@ public struct PotentialFlowPDE : IPDE<float, 3>
         return 0.0;
     }
 
+    // checks if source term is constant
+    public bool isSourceConstant()
+    {
+        return true;
+    }
+
     // checks if Robin coefficients are non-zero anywhere on the reflecting boundary
     public bool areRobinConditionsPureNeumann()
     {

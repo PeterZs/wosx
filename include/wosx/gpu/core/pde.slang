@@ -44,6 +44,9 @@ public interface IPDE<T, let DIM : int>
     // returns absorption coefficient (must be positive or equal to zero)
     float absorptionCoeff();
 
+    // checks if source term is constant
+    bool isSourceConstant();
+
     // checks if Robin coefficients are non-zero anywhere on the reflecting boundary
     bool areRobinConditionsPureNeumann();
 

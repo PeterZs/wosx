@@ -103,6 +103,12 @@ public struct ModelProblemPDE : IPDE<DataType, 2>
 #endif
     }
 
+    // checks if source term is constant
+    public bool isSourceConstant()
+    {
+        return false;
+    }
+
     // checks if Robin coefficients are non-zero anywhere on the reflecting boundary
     public bool areRobinConditionsPureNeumann()
     {

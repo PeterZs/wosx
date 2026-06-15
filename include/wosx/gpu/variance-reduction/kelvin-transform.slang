@@ -189,6 +189,12 @@ public struct KelvinPDE<T, PDE, let DIM : int> : IPDE<T, DIM>
         return 0.0;
     }
 
+    // checks if source term is constant
+    public bool isSourceConstant()
+    {
+        return false; // return false for simplicity (true only when source is zero for exterior problem)
+    }
+
     // checks if Robin coefficients are non-zero anywhere on the reflecting boundary
     public bool areRobinConditionsPureNeumann()
     {

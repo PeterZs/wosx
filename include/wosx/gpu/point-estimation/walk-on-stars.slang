@@ -313,7 +313,7 @@ public struct WalkOnStars<T, PDE, GeometricQueries, let DIM : int>
 
             // check if the current pt lies outside the domain; for interior problems,
             // this tests for walks that escape due to numerical error
-            if (state.onReflectingBoundary != 0 && geometricQueries.outsideBoundingDomain(state.currentPt))
+            if (state.onReflectingBoundary == 0 && geometricQueries.outsideBoundingDomain(state.currentPt))
             {
                 return WalkCompletionCode::EscapedDomain;
             }

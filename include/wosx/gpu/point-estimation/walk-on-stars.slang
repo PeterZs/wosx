@@ -478,22 +478,29 @@ public struct WalkOnStars<T, PDE, GeometricQueries, let DIM : int>
                 vector<float, DIM> sourceGradientDirection = zero;
                 if (walkSettings.ignoreSourceContribution == 0)
                 {
-                    if (antitheticIter == 0)
+                    float greensFnNorm = greensFn.norm();
+                    if (pde.isSourceConstant())
                     {
-                        vector<float, DIM> sourceDirection = SphereSampler.sampleUnitSphereUniform(rng);
-                        sourcePt = greensFn.sampleVolume(sourceDirection, rng, sourceRadius, sourcePdf);
+                        firstSourceContribution = pde.source(state.currentPt).scale(greensFnNorm);
                     }
                     else
                     {
-                        vector<float, DIM> sourceDirection = sourcePt - state.currentPt;
-                        sourcePt = state.currentPt - sourceDirection;
+                        if (antitheticIter == 0)
+                        {
+                            vector<float, DIM> sourceDirection = SphereSampler.sampleUnitSphereUniform(rng);
+                            sourcePt = greensFn.sampleVolume(sourceDirection, rng, sourceRadius, sourcePdf);
+                        }
+                        else
+                        {
+                            vector<float, DIM> sourceDirection = sourcePt - state.currentPt;
+                            sourcePt = state.currentPt - sourceDirection;
+                        }
+
+                        firstSourceContribution = pde.source(sourcePt).scale(greensFnNorm);
+                        sourceGradientDirection = greensFn.gradient(sourceRadius, sourcePt) / (sourcePdf * greensFnNorm);
                     }
 
-                    float greensFnNorm = greensFn.norm();
-                    T sourceContribution = pde.source(sourcePt).scale(greensFnNorm);
-                    state.totalSourceContribution = state.totalSourceContribution + sourceContribution.scale(state.throughput);
-                    firstSourceContribution = sourceContribution;
-                    sourceGradientDirection = greensFn.gradient(sourceRadius, sourcePt) / (sourcePdf * greensFnNorm);
+                    state.totalSourceContribution = state.totalSourceContribution + firstSourceContribution.scale(state.throughput);
                 }
 
                 // sample a point uniformly on the sphere; update the current position

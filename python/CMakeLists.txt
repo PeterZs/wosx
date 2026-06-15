@@ -31,40 +31,81 @@ install(TARGETS _wosx
     RUNTIME DESTINATION wosx
 )
 
+# Bundle the TBB runtime used by the extension. The vendored oneTBB
+# install rules are disabled globally, so install the shared library next
+# to _wosx where Python can find it on Windows and via RPATH elsewhere.
+if(TARGET tbb)
+    install(TARGETS tbb
+        LIBRARY DESTINATION wosx
+        RUNTIME DESTINATION wosx
+    )
+endif()
+
 # install GPU support files if enabled
 if(WOSX_ENABLE_GPU_SUPPORT)
-    # Slang libraries are fetched via FetchContent and located in _deps/slang-src/lib;
-    # we need to install all required Slang shared libraries to the wosx package
+    # slang-rhi is static by default, but it depends on fetched Slang
+    # compiler/runtime libraries and optional backend DLLs. Bundle those
+    # next to _wosx so GPU bindings do not depend on build-tree paths.
+    if(CMAKE_CONFIGURATION_TYPES)
+        set(WOSX_SLANG_RHI_RUNTIME_DIR "${CMAKE_BINARY_DIR}/\${CMAKE_INSTALL_CONFIG_NAME}")
+    else()
+        set(WOSX_SLANG_RHI_RUNTIME_DIR "${CMAKE_BINARY_DIR}")
+    endif()
 
-    # try to find the Slang library directory
-    set(SLANG_LIB_SEARCH_PATHS
-        "${CMAKE_BINARY_DIR}/_deps/slang-src/lib"
-        "${CMAKE_CURRENT_BINARY_DIR}/_deps/slang-src/lib"
-    )
-
-    set(SLANG_LIB_DIR "")
-    foreach(SEARCH_PATH ${SLANG_LIB_SEARCH_PATHS})
-        if(EXISTS "${SEARCH_PATH}")
-            set(SLANG_LIB_DIR "${SEARCH_PATH}")
-            message(STATUS "Found Slang libraries at: ${SLANG_LIB_DIR}")
-            break()
-        endif()
-    endforeach()
-
-    if(SLANG_LIB_DIR)
-        # install all Slang shared libraries using install(CODE) to handle glob at install time
+    if(WIN32)
+        # slang-rhi copies Slang, DXC, WinPix, Dawn, and similar runtime DLLs
+        # into its runtime output directory via the slang-rhi-copy-files target.
         install(CODE "
-            file(GLOB SLANG_LIBS \"${SLANG_LIB_DIR}/libslang*.so*\" \"${SLANG_LIB_DIR}/libgfx*.so*\")
-            foreach(LIB_FILE \${SLANG_LIBS})
-                message(STATUS \"Installing Slang library: \${LIB_FILE}\")
-                file(INSTALL DESTINATION \"\${CMAKE_INSTALL_PREFIX}/wosx\" TYPE SHARED_LIBRARY FILES \"\${LIB_FILE}\")
+            set(_wosx_slang_rhi_runtime_dir \"${WOSX_SLANG_RHI_RUNTIME_DIR}\")
+            file(GLOB _wosx_slang_rhi_libs \"\${_wosx_slang_rhi_runtime_dir}/*.dll\")
+            foreach(_lib \${_wosx_slang_rhi_libs})
+                message(STATUS \"Installing Slang RHI runtime library: \${_lib}\")
+                file(INSTALL DESTINATION \"\${CMAKE_INSTALL_PREFIX}/wosx\" TYPE SHARED_LIBRARY FILES \"\${_lib}\")
+            endforeach()
+            if(EXISTS \"\${_wosx_slang_rhi_runtime_dir}/D3D12\")
+                message(STATUS \"Installing Slang RHI D3D12 runtime directory: \${_wosx_slang_rhi_runtime_dir}/D3D12\")
+                file(INSTALL DESTINATION \"\${CMAKE_INSTALL_PREFIX}/wosx\" TYPE DIRECTORY FILES \"\${_wosx_slang_rhi_runtime_dir}/D3D12\")
+            endif()
+        ")
+    else()
+        if(DEFINED SLANG_RHI_SLANG_BINARY_DIR)
+            if(APPLE)
+                install(CODE "
+                    file(GLOB _wosx_slang_libs
+                        \"${SLANG_RHI_SLANG_BINARY_DIR}/lib/libslang*.dylib\"
+                        \"${SLANG_RHI_SLANG_BINARY_DIR}/lib/libgfx*.dylib\")
+                    foreach(_lib \${_wosx_slang_libs})
+                        message(STATUS \"Installing Slang library: \${_lib}\")
+                        file(INSTALL DESTINATION \"\${CMAKE_INSTALL_PREFIX}/wosx\" TYPE SHARED_LIBRARY FILES \"\${_lib}\")
+                    endforeach()
+                ")
+            else()
+                install(CODE "
+                    file(GLOB _wosx_slang_libs
+                        \"${SLANG_RHI_SLANG_BINARY_DIR}/lib/libslang*.so*\"
+                        \"${SLANG_RHI_SLANG_BINARY_DIR}/lib/libgfx*.so*\")
+                    foreach(_lib \${_wosx_slang_libs})
+                        message(STATUS \"Installing Slang library: \${_lib}\")
+                        file(INSTALL DESTINATION \"\${CMAKE_INSTALL_PREFIX}/wosx\" TYPE SHARED_LIBRARY FILES \"\${_lib}\")
+                    endforeach()
+                ")
+            endif()
+        else()
+            message(WARNING "WOSX_ENABLE_GPU_SUPPORT is ON but SLANG_RHI_SLANG_BINARY_DIR is not defined. "
+                            "GPU functionality may not work in Python bindings.")
+        endif()
+
+        # install optional copied backend runtimes such as Dawn if present.
+        install(CODE "
+            set(_wosx_slang_rhi_runtime_dir \"${WOSX_SLANG_RHI_RUNTIME_DIR}\")
+            file(GLOB _wosx_slang_rhi_libs
+                \"\${_wosx_slang_rhi_runtime_dir}/*.so*\"
+                \"\${_wosx_slang_rhi_runtime_dir}/*.dylib\")
+            foreach(_lib \${_wosx_slang_rhi_libs})
+                message(STATUS \"Installing Slang RHI runtime library: \${_lib}\")
+                file(INSTALL DESTINATION \"\${CMAKE_INSTALL_PREFIX}/wosx\" TYPE SHARED_LIBRARY FILES \"\${_lib}\")
             endforeach()
         ")
-        message(STATUS "Configured Slang library installation from: ${SLANG_LIB_DIR}")
-    else()
-        message(WARNING "WOSX_ENABLE_GPU_SUPPORT is ON but Slang library directory not found. "
-                        "Searched paths: ${SLANG_LIB_SEARCH_PATHS}\n"
-                        "GPU functionality may not work in Python bindings.")
     endif()
 endif()
 

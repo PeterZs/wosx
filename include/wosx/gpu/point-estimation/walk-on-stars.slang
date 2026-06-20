@@ -323,12 +323,13 @@ public struct WalkOnStars<T, PDE, GeometricQueries, let DIM : int>
             // compute the source contribution
             computeSourceContribution(direction, intersectionPt.dist, rng, greensFn, state);
 
-            // update walk position
+            // update walk position, normal and throughput
             state.prevDistance = intersectionPt.dist;
             state.prevDirection = direction;
             state.currentPt = intersectionPt.pt;
             state.currentNormal = intersectionPt.normal; // NOTE: stale unless intersectedReflectingBoundary is true
             state.onReflectingBoundary = intersectedReflectingBoundary ? 1 : 0;
+            state.throughput *= computeWalkStepThroughput(greensFn, state);
 
             // check if the current pt lies outside the domain; for interior problems,
             // this tests for walks that escape due to numerical error
@@ -337,8 +338,7 @@ public struct WalkOnStars<T, PDE, GeometricQueries, let DIM : int>
                 return WalkCompletionCode::EscapedDomain;
             }
 
-            // update the walk throughput and use russian roulette to decide whether to terminate the walk
-            state.throughput *= computeWalkStepThroughput(greensFn, state);
+            // use russian roulette to decide whether to terminate the walk
             bool terminateWalk = applyRussianRoulette(rng, state);
             if (terminateWalk)
             {

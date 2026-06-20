@@ -123,8 +123,9 @@ public struct WalkOnSpheres<T, PDE, GeometricQueries, let DIM : int>
             // sample a direction uniformly
             vector<float, DIM> direction = SphereSampler.sampleUnitSphereUniform(rng);
 
-            // update walk position
+            // update walk position and throughput
             state.currentPt = state.currentPt + distToAbsorbingBoundary * direction;
+            state.throughput *= greensFn.directionSampledPoissonKernel(state.currentPt);
 
             // check if the current pt lies outside the domain; for interior problems,
             // this tests for walks that escape due to numerical error
@@ -133,8 +134,7 @@ public struct WalkOnSpheres<T, PDE, GeometricQueries, let DIM : int>
                 return WalkCompletionCode::EscapedDomain;
             }
 
-            // update the walk throughput and use russian roulette to decide whether to terminate the walk
-            state.throughput *= greensFn.directionSampledPoissonKernel(state.currentPt);
+            // use russian roulette to decide whether to terminate the walk
             bool terminateWalk = applyRussianRoulette(rng, state);
             if (terminateWalk)
             {

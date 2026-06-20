@@ -64,6 +64,15 @@ public struct WalkOnStars<T, PDE, GeometricQueries, let DIM : int>
     /////////////////////////////////////////////////////////////////////////////////////////////////
     // lower-level functions
 
+    // check if the PDE has a non-zero robin coefficient value at the given point
+    public bool boundaryLocationHasNonZeroRobinCoeff(vector<float, DIM> x)
+    {
+        vector<float, DIM> n = vector<float, DIM>(0.0);
+        n[0] = 1.0;
+
+        return abs(pde.robinCoeff(x, n, true)) > 0.0 || abs(pde.robinCoeff(x, n, false)) > 0.0;
+    }
+
     // computes the contribution from the reflecting boundary at a particular point in the walk
     public void computeReflectingBoundaryContribution(float starRadius,
                                                       bool flipNormalOrientation,
@@ -201,13 +210,23 @@ public struct WalkOnStars<T, PDE, GeometricQueries, let DIM : int>
         return greensFn.directionSampledPoissonKernel(state.currentPt);
     }
 
-    // check if the PDE has a non-zero robin coefficient value at the given point
-    public bool boundaryLocationHasNonZeroRobinCoeff(vector<float, DIM> x)
+    // applies russian roulette to a walk based on the current state
+    public bool applyRussianRoulette(inout pcg32 rng,
+                                     inout WalkState<T, DIM> state)
     {
-        vector<float, DIM> n = vector<float, DIM>(0.0);
-        n[0] = 1.0;
+        if (state.throughput < walkSettings.russianRouletteThreshold)
+        {
+            float survivalProb = state.throughput / walkSettings.russianRouletteThreshold;
+            if (survivalProb < rng.nextFloat())
+            {
+                state.throughput = 0.0;
+                return true;
+            }
 
-        return abs(pde.robinCoeff(x, n, true)) > 0.0 || abs(pde.robinCoeff(x, n, false)) > 0.0;
+            state.throughput = walkSettings.russianRouletteThreshold;
+        }
+
+        return false;
     }
 
     // performs a single reflecting random walk starting at the input point
@@ -320,16 +339,10 @@ public struct WalkOnStars<T, PDE, GeometricQueries, let DIM : int>
 
             // update the walk throughput and use russian roulette to decide whether to terminate the walk
             state.throughput *= computeWalkStepThroughput(greensFn, state);
-            if (state.throughput < walkSettings.russianRouletteThreshold)
+            bool terminateWalk = applyRussianRoulette(rng, state);
+            if (terminateWalk)
             {
-                float survivalProb = state.throughput / walkSettings.russianRouletteThreshold;
-                if (survivalProb < rng.nextFloat())
-                {
-                    state.throughput = 0.0;
-                    return WalkCompletionCode::TerminatedWithRussianRoulette;
-                }
-
-                state.throughput = walkSettings.russianRouletteThreshold;
+                return WalkCompletionCode::TerminatedWithRussianRoulette;
             }
 
             // update the walk length and break if the max walk length is exceeded

@@ -86,6 +86,25 @@ public struct WalkOnSpheres<T, PDE, GeometricQueries, let DIM : int>
         }
     }
 
+    // applies russian roulette to a walk based on the current state
+    public bool applyRussianRoulette(inout pcg32 rng,
+                                     inout WalkState<T, DIM> state)
+    {
+        if (state.throughput < walkSettings.russianRouletteThreshold)
+        {
+            float survivalProb = state.throughput / walkSettings.russianRouletteThreshold;
+            if (survivalProb < rng.nextFloat())
+            {
+                state.throughput = 0.0;
+                return true;
+            }
+
+            state.throughput = walkSettings.russianRouletteThreshold;
+        }
+
+        return false;
+    }
+
     // performs a single random walk starting at the input point
     public WalkCompletionCode walk(float distToAbsorbingBoundary,
                                    inout pcg32 rng,
@@ -116,16 +135,10 @@ public struct WalkOnSpheres<T, PDE, GeometricQueries, let DIM : int>
 
             // update the walk throughput and use russian roulette to decide whether to terminate the walk
             state.throughput *= greensFn.directionSampledPoissonKernel(state.currentPt);
-            if (state.throughput < walkSettings.russianRouletteThreshold)
+            bool terminateWalk = applyRussianRoulette(rng, state);
+            if (terminateWalk)
             {
-                float survivalProb = state.throughput / walkSettings.russianRouletteThreshold;
-                if (survivalProb < rng.nextFloat())
-                {
-                    state.throughput = 0.0;
-                    return WalkCompletionCode::TerminatedWithRussianRoulette;
-                }
-
-                state.throughput = walkSettings.russianRouletteThreshold;
+                return WalkCompletionCode::TerminatedWithRussianRoulette;
             }
 
             // update the walk length and break if the max walk length is exceeded

@@ -65,7 +65,7 @@ public struct WalkOnStars<T, PDE, GeometricQueries, let DIM : int>
     // lower-level functions
 
     // check if the PDE has a non-zero robin coefficient value at the given point
-    public bool boundaryLocationHasNonZeroRobinCoeff(vector<float, DIM> x)
+    public bool checkForNonZeroRobinCoeff(vector<float, DIM> x)
     {
         vector<float, DIM> n = vector<float, DIM>(0.0);
         n[0] = 1.0;
@@ -257,7 +257,7 @@ public struct WalkOnStars<T, PDE, GeometricQueries, let DIM : int>
             {
                 starRadius = distToAbsorbingBoundary;
             }
-            else if (state.onReflectingBoundary != 0 && boundaryLocationHasNonZeroRobinCoeff(state.currentPt))
+            else if (state.onReflectingBoundary != 0 && checkForNonZeroRobinCoeff(state.currentPt))
             {
                 // NOTE: reflectance, and hence sphere radius, is zero exactly on the boundary,
                 // therefore we use a small epsilon for the sphere radius to ensure the walk continues

@@ -40,6 +40,7 @@ public:
 private:
     // members
     std::vector<std::string> searchPaths;
+    std::filesystem::path wosxDirectoryPath;
     std::filesystem::path fcpwGpuDirectoryPath;
     std::filesystem::path wosxGpuDirectoryPath;
     std::string wosxPdeModule;

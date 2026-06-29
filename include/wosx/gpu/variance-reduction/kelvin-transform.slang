@@ -121,8 +121,8 @@ public struct KelvinPDE<T, PDE, let DIM : int> : IPDE<T, DIM>
     where T : IFloat
     where PDE : IPDE<T, DIM>
 {
-    private PDE pdeExteriorDomain;
     private KelvinTransform<T, DIM> kelvinTransform;
+    private PDE pdeExteriorDomain;
     public typedef PDE::GreensFnFreeSpace GreensFnFreeSpace;
     public typedef PDE::GreensFnBall GreensFnBall;
 

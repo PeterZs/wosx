@@ -34,9 +34,9 @@ public struct WalkOnSpheres<T, PDE, GeometricQueries, let DIM : int>
     where PDE : IPDE<T, DIM>
     where GeometricQueries : IGeometricQueries<DIM>
 {
-    private PDE pde;
-    private GeometricQueries geometricQueries;
     private WalkSettings walkSettings;
+    private GeometricQueries geometricQueries;
+    private PDE pde;
     private typedef PDE::GreensFnBall GreensFn;
     private typedef GreensFn::SphereSampler SphereSampler;
 
@@ -232,8 +232,8 @@ public struct WalkOnSpheres<T, PDE, GeometricQueries, let DIM : int>
         for (uint w = 0; w < nWalks; w++)
         {
             // initialize temporary variables for antithetic sampling
-            float sourceRadius, sourcePdf, boundaryPdf;
-            vector<float, DIM> sourcePt, boundaryPt;
+            float sourceRadius = 0.0, sourcePdf = 0.0, boundaryPdf = 0.0;
+            vector<float, DIM> sourcePt = zero, boundaryPt = zero;
             uint64_t seed = 0;
 
             // compute control variates for the gradient estimate

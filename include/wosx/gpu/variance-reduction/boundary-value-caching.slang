@@ -210,8 +210,8 @@ public struct BoundaryValueCaching<T, PDE, let DIM : int>
     where T : IFloat
     where PDE : IPDE<T, DIM>
 {
-    private PDE pde;
     private WalkSettings walkSettings;
+    private PDE pde;
     private typedef PDE::GreensFnFreeSpace GreensFnFreeSpace;
     private typedef GreensFnFreeSpace::KernelRegularization KernelRegularization;
 

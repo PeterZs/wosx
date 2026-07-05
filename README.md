@@ -30,14 +30,14 @@ The best way to get started is through the demo applications in [`demo_apps/`](d
 
 <table>
   <tr>
-    <th>Thermal Conduction</th>
-    <th>Electrostatics</th>
-    <th>Potential Flow</th>
+    <td align="center"><strong>Basic 2D Diffusion</strong><br><img src="demo_apps/basic_2d/model_problems/nautilus/solutions/wos.png" width="220"></td>
+    <td align="center"><strong>Thermal Conduction</strong><br><img src="demo_apps/thermal_conduction/solutions/solution_0_color.png" width="220"></td>
+    <td align="center"><strong>Electrostatics</strong><br><img src="demo_apps/electrostatics/solutions/electric_potential_75V.gif" width="220"></td>
   </tr>
   <tr>
-    <td align="center"><img src="demo_apps/thermal_conduction/solutions/solution_0_color.png" width="220"></td>
-    <td align="center"><img src="demo_apps/electrostatics/solutions/electric_potential_75V.gif" width="220"></td>
-    <td align="center"><img src="demo_apps/potential_flow/solutions/car_flow.png" height="220"></td>
+    <td align="center"><strong>Potential Flow</strong><br><img src="demo_apps/potential_flow/solutions/car_flow.png" width="312"></td>
+    <td align="center"><strong>Geometric Deformation</strong><br><img src="demo_apps/geometric_deformation/solutions/octopus_deforming.gif" width="220"></td>
+    <td></td>
   </tr>
 </table>
 
@@ -48,13 +48,14 @@ The best way to get started is through the demo applications in [`demo_apps/`](d
 - [`thermal_conduction`](demo_apps/thermal_conduction/): thermal
   rendering on a complex Mars rover mesh with textured boundary data.
 - [`electrostatics`](demo_apps/electrostatics/): moving comb-drive
-  electrostatics with interactive electric potential and field visualization.
+  electrostatics with interactive electric potential & field visualization.
 - [`potential_flow`](demo_apps/potential_flow/): exterior potential flow around
   complex 3D shapes.
-- [`geometric_deformation`](demo_apps/geometric_deformation/): *Coming soon!*
+- [`geometric_deformation`](demo_apps/geometric_deformation/): interactive
+  cage-based deformation of 3D shapes using harmonic coordinates.
 
-Each demo has its own README with the problem setup, expected outputs, and C++
-and Python run commands.
+Each demo has its own README with the problem setup, expected outputs, and run
+instructions.
 
 ## Core Workflow
 

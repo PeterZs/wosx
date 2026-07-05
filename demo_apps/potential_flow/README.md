@@ -51,6 +51,11 @@ Relevant settings live in `config.json`: `problem.geometry`,
 boundary value cache parameters under `solver`, and screenshot/colormap options
 under `output`.
 
+**NOTE**: Boundary value caching performs well for estimates in the far field,
+but its solution and especially gradient estimates can exhibit high noise and
+variance close to the body surface. Improving this near-surface behavior remains
+an open research challenge.
+
 ## Demo Modes
 
 With `output.visualizeSetup` set to `true`, the demo opens a Polyscope viewer

@@ -1,0 +1,17 @@
+{
+    "deviceBackend": "cuda",
+    "solver": {
+        "nWalksPerBatch": 100,
+        "maxWalkLength": 1000,
+        "epsilonShellForAbsorbingBoundary": 1e-3,
+        "enableRKPM": true,
+        "enableDenoising": true,
+        "printLogs": false
+    },
+    "problem": {
+        "embeddedMesh": "data/beast.obj",
+        "cageMesh": "data/beast_cage.obj",
+        "handleCount": 5,
+        "fixedVertexMaxY": -0.65
+    }
+}

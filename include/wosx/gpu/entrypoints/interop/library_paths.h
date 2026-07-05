@@ -49,8 +49,8 @@ private:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Implementation
 
-GPULibraryPaths::GPULibraryPaths(const std::string& wosxDirectoryPath_,
-                                 const std::string& wosxPdeDirectoryPath_)
+inline GPULibraryPaths::GPULibraryPaths(const std::string& wosxDirectoryPath_,
+                                        const std::string& wosxPdeDirectoryPath_)
 {
     fcpwGpuDirectoryPath = wosxDirectoryPath_ + "/deps/fcpw/include/fcpw/gpu";
     wosxGpuDirectoryPath = wosxDirectoryPath_ + "/include/wosx/gpu";
@@ -65,37 +65,37 @@ GPULibraryPaths::GPULibraryPaths(const std::string& wosxDirectoryPath_,
     }
 }
 
-std::string GPULibraryPaths::getFcpwGpuDirectoryPath() const
+inline std::string GPULibraryPaths::getFcpwGpuDirectoryPath() const
 {
     return fcpwGpuDirectoryPath.string();
 }
 
-std::string GPULibraryPaths::getWosxGpuDirectoryPath() const
+inline std::string GPULibraryPaths::getWosxGpuDirectoryPath() const
 {
     return wosxGpuDirectoryPath.string();
 }
 
-std::vector<std::string> GPULibraryPaths::getSearchPaths() const
+inline std::vector<std::string> GPULibraryPaths::getSearchPaths() const
 {
     return searchPaths;
 }
 
-std::string GPULibraryPaths::getFcpwModule() const
+inline std::string GPULibraryPaths::getFcpwModule() const
 {
     return (fcpwGpuDirectoryPath / "fcpw.slang").string();
 }
 
-std::string GPULibraryPaths::getWosxModule() const
+inline std::string GPULibraryPaths::getWosxModule() const
 {
     return (wosxGpuDirectoryPath / "wosx.slang").string();
 }
 
-std::string GPULibraryPaths::getWosxPdeModule() const
+inline std::string GPULibraryPaths::getWosxPdeModule() const
 {
     return wosxPdeModule;
 }
 
-std::vector<std::string> GPULibraryPaths::getModules() const
+inline std::vector<std::string> GPULibraryPaths::getModules() const
 {
     std::vector<std::string> modules;
     modules.emplace_back(getFcpwModule());

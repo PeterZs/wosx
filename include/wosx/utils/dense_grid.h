@@ -36,7 +36,8 @@ template <typename T, size_t CHANNELS, size_t DIM>
 class DenseGrid {
 public:
     // constructors
-    DenseGrid(const Vector<DIM>& gridMin, const Vector<DIM>& gridMax,
+    DenseGrid(const Vector<DIM>& gridMin,
+              const Vector<DIM>& gridMax,
               bool enableInterpolation=false);
     DenseGrid(const Eigen::Matrix<T, Eigen::Dynamic, CHANNELS>& gridData,
               const Vectori<DIM>& gridShape, const Vector<DIM>& gridMin,
@@ -129,38 +130,39 @@ std::function<T(const Vector<DIM>&, const Vector<DIM>&, bool)> getDenseGridCallb
 // Implementation
 
 template <typename T, size_t CHANNELS, size_t DIM>
-inline DenseGrid<T, CHANNELS, DIM>::DenseGrid(const Vector<DIM>& gridMin, const Vector<DIM>& gridMax,
-                                              bool enableInterpolation):
-                                              shape(Vectori<DIM>::Zero()),
-                                              origin(gridMin), extent(gridMax - gridMin),
-                                              interpolationEnabled(enableInterpolation)
+DenseGrid<T, CHANNELS, DIM>::DenseGrid(const Vector<DIM>& gridMin,
+                                       const Vector<DIM>& gridMax,
+                                       bool enableInterpolation):
+                                       shape(Vectori<DIM>::Zero()),
+                                       origin(gridMin), extent(gridMax - gridMin),
+                                       interpolationEnabled(enableInterpolation)
 {
     // do nothing
 }
 
 template <typename T, size_t CHANNELS, size_t DIM>
-inline DenseGrid<T, CHANNELS, DIM>::DenseGrid(const Eigen::Matrix<T, Eigen::Dynamic, CHANNELS>& gridData,
-                                              const Vectori<DIM>& gridShape, const Vector<DIM>& gridMin,
-                                              const Vector<DIM>& gridMax, bool enableInterpolation):
-                                              origin(gridMin), extent(gridMax - gridMin),
-                                              interpolationEnabled(enableInterpolation)
+DenseGrid<T, CHANNELS, DIM>::DenseGrid(const Eigen::Matrix<T, Eigen::Dynamic, CHANNELS>& gridData,
+                                       const Vectori<DIM>& gridShape, const Vector<DIM>& gridMin,
+                                       const Vector<DIM>& gridMax, bool enableInterpolation):
+                                       origin(gridMin), extent(gridMax - gridMin),
+                                       interpolationEnabled(enableInterpolation)
 {
     set(gridData, gridShape);
 }
 
 template <typename T, size_t CHANNELS, size_t DIM>
-inline DenseGrid<T, CHANNELS, DIM>::DenseGrid(std::function<Array<T, CHANNELS>(const Vector<DIM>&)> gridDataCallback,
-                                              const Vectori<DIM>& gridShape, const Vector<DIM>& gridMin,
-                                              const Vector<DIM>& gridMax, bool enableInterpolation):
-                                              origin(gridMin), extent(gridMax - gridMin),
-                                              interpolationEnabled(enableInterpolation)
+DenseGrid<T, CHANNELS, DIM>::DenseGrid(std::function<Array<T, CHANNELS>(const Vector<DIM>&)> gridDataCallback,
+                                       const Vectori<DIM>& gridShape, const Vector<DIM>& gridMin,
+                                       const Vector<DIM>& gridMax, bool enableInterpolation):
+                                       origin(gridMin), extent(gridMax - gridMin),
+                                       interpolationEnabled(enableInterpolation)
 {
     set(gridDataCallback, gridShape);
 }
 
 template <typename T, size_t CHANNELS, size_t DIM>
-inline void DenseGrid<T, CHANNELS, DIM>::set(const Eigen::Matrix<T, Eigen::Dynamic, CHANNELS>& gridData,
-                                             const Vectori<DIM>& gridShape)
+void DenseGrid<T, CHANNELS, DIM>::set(const Eigen::Matrix<T, Eigen::Dynamic, CHANNELS>& gridData,
+                                      const Vectori<DIM>& gridShape)
 {
     // check data consistency
     if (gridData.rows() != gridShape.prod()) {
@@ -176,8 +178,8 @@ inline void DenseGrid<T, CHANNELS, DIM>::set(const Eigen::Matrix<T, Eigen::Dynam
 }
 
 template <typename T, size_t CHANNELS, size_t DIM>
-inline void DenseGrid<T, CHANNELS, DIM>::set(std::function<Array<T, CHANNELS>(const Vector<DIM>&)> gridDataCallback,
-                                             const Vectori<DIM>& gridShape)
+void DenseGrid<T, CHANNELS, DIM>::set(std::function<Array<T, CHANNELS>(const Vector<DIM>&)> gridDataCallback,
+                                      const Vectori<DIM>& gridShape)
 {
     // resize the data vector
     int gridSize = gridShape.prod();
@@ -200,7 +202,7 @@ inline void DenseGrid<T, CHANNELS, DIM>::set(std::function<Array<T, CHANNELS>(co
 }
 
 template <typename T, size_t CHANNELS, size_t DIM>
-inline void DenseGrid<T, CHANNELS, DIM>::set(int index, const Array<T, CHANNELS>& value)
+void DenseGrid<T, CHANNELS, DIM>::set(int index, const Array<T, CHANNELS>& value)
 {
     if (index < 0 || index >= shape.prod()) {
         std::cerr << "DenseGrid::set(): Index out of bounds." << std::endl;
@@ -211,7 +213,7 @@ inline void DenseGrid<T, CHANNELS, DIM>::set(int index, const Array<T, CHANNELS>
 }
 
 template <typename T, size_t CHANNELS, size_t DIM>
-inline void DenseGrid<T, CHANNELS, DIM>::set(const Vectori<DIM>& index, const Array<T, CHANNELS>& value)
+void DenseGrid<T, CHANNELS, DIM>::set(const Vectori<DIM>& index, const Array<T, CHANNELS>& value)
 {
     // compute the linear index
     size_t flatIndex = 0;
@@ -231,7 +233,7 @@ inline void DenseGrid<T, CHANNELS, DIM>::set(const Vectori<DIM>& index, const Ar
 }
 
 template <typename T, size_t CHANNELS, size_t DIM>
-inline Vector<DIM> DenseGrid<T, CHANNELS, DIM>::get(int index) const
+Vector<DIM> DenseGrid<T, CHANNELS, DIM>::get(int index) const
 {
     if (index < 0 || index >= shape.prod()) {
         std::cerr << "DenseGrid::get(): Index out of bounds." << std::endl;
@@ -249,7 +251,7 @@ inline Vector<DIM> DenseGrid<T, CHANNELS, DIM>::get(int index) const
 }
 
 template <typename T, size_t CHANNELS, size_t DIM>
-inline Vector<DIM> DenseGrid<T, CHANNELS, DIM>::get(const Vectori<DIM>& index) const
+Vector<DIM> DenseGrid<T, CHANNELS, DIM>::get(const Vectori<DIM>& index) const
 {
     Vector<DIM> x = Vector<DIM>::Zero();
     for (int i = 0; i < DIM; i++) {
@@ -266,8 +268,8 @@ inline Vector<DIM> DenseGrid<T, CHANNELS, DIM>::get(const Vectori<DIM>& index) c
 }
 
 template <typename T, size_t CHANNELS>
-inline Array<T, CHANNELS> interpolate(const DenseGrid<T, CHANNELS, 2>& grid,
-                                      const Vector2& xLocal)
+Array<T, CHANNELS> interpolate(const DenseGrid<T, CHANNELS, 2>& grid,
+                               const Vector2& xLocal)
 {
     // perform bilinear interpolation
     const Eigen::Matrix<T, Eigen::Dynamic, CHANNELS>& data = grid.data;
@@ -295,8 +297,8 @@ inline Array<T, CHANNELS> interpolate(const DenseGrid<T, CHANNELS, 2>& grid,
 }
 
 template <typename T, size_t CHANNELS>
-inline Array<T, CHANNELS> interpolate(const DenseGrid<T, CHANNELS, 3>& grid,
-                                      const Vector3& xLocal)
+Array<T, CHANNELS> interpolate(const DenseGrid<T, CHANNELS, 3>& grid,
+                               const Vector3& xLocal)
 {
     // perform trilinear interpolation
     const Eigen::Matrix<T, Eigen::Dynamic, CHANNELS>& data = grid.data;
@@ -335,7 +337,7 @@ inline Array<T, CHANNELS> interpolate(const DenseGrid<T, CHANNELS, 3>& grid,
 }
 
 template <typename T, size_t CHANNELS, size_t DIM>
-inline Array<T, CHANNELS> DenseGrid<T, CHANNELS, DIM>::operator()(const Vector<DIM>& x) const
+Array<T, CHANNELS> DenseGrid<T, CHANNELS, DIM>::operator()(const Vector<DIM>& x) const
 {
     // convert input point to local coordinates
     Vector<DIM> xLocal = getLocalCoordinates(x);
@@ -360,19 +362,19 @@ inline Array<T, CHANNELS> DenseGrid<T, CHANNELS, DIM>::operator()(const Vector<D
 }
 
 template <typename T, size_t CHANNELS, size_t DIM>
-inline Array<T, CHANNELS> DenseGrid<T, CHANNELS, DIM>::min() const
+Array<T, CHANNELS> DenseGrid<T, CHANNELS, DIM>::min() const
 {
     return data.colwise().minCoeff().transpose().array();
 }
 
 template <typename T, size_t CHANNELS, size_t DIM>
-inline Array<T, CHANNELS> DenseGrid<T, CHANNELS, DIM>::max() const
+Array<T, CHANNELS> DenseGrid<T, CHANNELS, DIM>::max() const
 {
     return data.colwise().maxCoeff().transpose().array();
 }
 
 template <typename T, size_t CHANNELS, size_t DIM>
-inline Vector<DIM> DenseGrid<T, CHANNELS, DIM>::getLocalCoordinates(const Vector<DIM>& x) const
+Vector<DIM> DenseGrid<T, CHANNELS, DIM>::getLocalCoordinates(const Vector<DIM>& x) const
 {
     return (x - origin).array()/extent.array();
 }

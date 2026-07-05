@@ -143,7 +143,7 @@ protected:
 // Implementation
 
 template <size_t DIM>
-inline GeometricQueries<DIM>::GeometricQueries():
+GeometricQueries<DIM>::GeometricQueries():
 hasNonEmptyAbsorbingBoundary(false),
 hasNonEmptyReflectingBoundary(false),
 domainIsWatertight(true),
@@ -154,9 +154,9 @@ domainMax(Vector<DIM>::Constant(std::numeric_limits<float>::max()))
 }
 
 template <size_t DIM>
-inline GeometricQueries<DIM>::GeometricQueries(bool domainIsWatertight_,
-                                               const Vector<DIM>& domainMin_,
-                                               const Vector<DIM>& domainMax_):
+GeometricQueries<DIM>::GeometricQueries(bool domainIsWatertight_,
+                                        const Vector<DIM>& domainMin_,
+                                        const Vector<DIM>& domainMax_):
 hasNonEmptyAbsorbingBoundary(false),
 hasNonEmptyReflectingBoundary(false),
 domainIsWatertight(domainIsWatertight_),
@@ -167,7 +167,7 @@ domainMax(domainMax_)
 }
 
 template <size_t DIM>
-inline Vector<DIM> offsetPointAlongDirectionImpl(const Vector<DIM>& p, const Vector<DIM>& n)
+Vector<DIM> offsetPointAlongDirectionImpl(const Vector<DIM>& p, const Vector<DIM>& n)
 {
     return p + RAY_OFFSET*n;
 }
@@ -223,7 +223,7 @@ inline Vector3 offsetPointAlongDirectionImpl<3>(const Vector3& p, const Vector3&
 }
 
 template <size_t DIM>
-inline void GeometricQueries<DIM>::populate()
+void GeometricQueries<DIM>::populate()
 {
     computeDistToAbsorbingBoundary = [this](const Vector<DIM>& x, bool computeSignedDistance) -> float {
         Vector<DIM> u = this->domainMin - x;

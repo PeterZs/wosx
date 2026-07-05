@@ -135,7 +135,7 @@ private:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Implementation
 
-GPUReflectanceBvhNode::GPUReflectanceBvhNode()
+inline GPUReflectanceBvhNode::GPUReflectanceBvhNode()
 {
     box = GPUBoundingBox();
     cone = GPUBoundingCone();
@@ -145,23 +145,23 @@ GPUReflectanceBvhNode::GPUReflectanceBvhNode()
     maxCoefficientValue = maxFloat;
 }
 
-GPUReflectanceBvhNode::GPUReflectanceBvhNode(const GPUBoundingBox& box_,
-                                             const GPUBoundingCone& cone_,
-                                             uint32_t nPrimitives_,
-                                             uint32_t offset_,
-                                             float minCoefficientValue_,
-                                             float maxCoefficientValue_):
-                                             box(box_),
-                                             cone(cone_),
-                                             nPrimitives(nPrimitives_),
-                                             offset(offset_),
-                                             minCoefficientValue(minCoefficientValue_),
-                                             maxCoefficientValue(maxCoefficientValue_)
+inline GPUReflectanceBvhNode::GPUReflectanceBvhNode(const GPUBoundingBox& box_,
+                                                    const GPUBoundingCone& cone_,
+                                                    uint32_t nPrimitives_,
+                                                    uint32_t offset_,
+                                                    float minCoefficientValue_,
+                                                    float maxCoefficientValue_):
+                                                    box(box_),
+                                                    cone(cone_),
+                                                    nPrimitives(nPrimitives_),
+                                                    offset(offset_),
+                                                    minCoefficientValue(minCoefficientValue_),
+                                                    maxCoefficientValue(maxCoefficientValue_)
 {
     // do nothing
 }
 
-GPUReflectanceLineSegment::GPUReflectanceLineSegment()
+inline GPUReflectanceLineSegment::GPUReflectanceLineSegment()
 {
     for (int i = 0; i < 2; i++) {
         p[i] = float3{0.0f, 0.0f, 0.0f};
@@ -173,13 +173,13 @@ GPUReflectanceLineSegment::GPUReflectanceLineSegment()
     index = FCPW_GPU_UINT_MAX;
 }
 
-GPUReflectanceLineSegment::GPUReflectanceLineSegment(float3 p0_, float3 p1_,
-                                                     float3 n0_, float3 n1_,
-                                                     int hasAdjacentFace0_,
-                                                     int hasAdjacentFace1_,
-                                                     float minCoefficientValue_,
-                                                     float maxCoefficientValue_,
-                                                     uint32_t index_)
+inline GPUReflectanceLineSegment::GPUReflectanceLineSegment(float3 p0_, float3 p1_,
+                                                            float3 n0_, float3 n1_,
+                                                            int hasAdjacentFace0_,
+                                                            int hasAdjacentFace1_,
+                                                            float minCoefficientValue_,
+                                                            float maxCoefficientValue_,
+                                                            uint32_t index_)
 {
     p[0] = p0_;
     p[1] = p1_;
@@ -192,7 +192,7 @@ GPUReflectanceLineSegment::GPUReflectanceLineSegment(float3 p0_, float3 p1_,
     index = index_;
 }
 
-GPUReflectanceTriangle::GPUReflectanceTriangle()
+inline GPUReflectanceTriangle::GPUReflectanceTriangle()
 {
     for (int i = 0; i < 3; i++) {
         p[i] = float3{0.0f, 0.0f, 0.0f};
@@ -204,14 +204,14 @@ GPUReflectanceTriangle::GPUReflectanceTriangle()
     index = FCPW_GPU_UINT_MAX;
 }
 
-GPUReflectanceTriangle::GPUReflectanceTriangle(float3 p0_, float3 p1_, float3 p2_,
-                                               float3 n0_, float3 n1_, float3 n2_,
-                                               int hasAdjacentFace0_,
-                                               int hasAdjacentFace1_,
-                                               int hasAdjacentFace2_,
-                                               float minCoefficientValue_,
-                                               float maxCoefficientValue_,
-                                               uint32_t index_)
+inline GPUReflectanceTriangle::GPUReflectanceTriangle(float3 p0_, float3 p1_, float3 p2_,
+                                                      float3 n0_, float3 n1_, float3 n2_,
+                                                      int hasAdjacentFace0_,
+                                                      int hasAdjacentFace1_,
+                                                      int hasAdjacentFace2_,
+                                                      float minCoefficientValue_,
+                                                      float maxCoefficientValue_,
+                                                      uint32_t index_)
 {
     p[0] = p0_;
     p[1] = p1_;
@@ -483,14 +483,14 @@ void GPUReflectanceBvhBuffers::allocate(GPUContext& context,
     }
 }
 
-void GPUReflectanceBvhBuffers::setResources(const ShaderCursor& cursor, bool printLogs) const
+inline void GPUReflectanceBvhBuffers::setResources(const ShaderCursor& cursor, bool printLogs) const
 {
     cursor["nodes"].setBinding(nodes.buffer);
     cursor["primitives"].setBinding(primitives.buffer);
     if (printLogs) printReflectionInfo(cursor, 2, reflectionType);
 }
 
-std::string GPUReflectanceBvhBuffers::getReflectionType() const
+inline std::string GPUReflectanceBvhBuffers::getReflectionType() const
 {
     return reflectionType;
 }

@@ -113,8 +113,8 @@ std::unique_ptr<ReflectanceMbvh<FCPW_SIMD_WIDTH, DIM, PrimitiveType, Reflectance
 // Implementation
 
 template <size_t WIDTH, size_t DIM, typename PrimitiveType, typename NodeType, typename NodeBound>
-inline ReflectanceMbvh<WIDTH, DIM, PrimitiveType, NodeType, NodeBound>::ReflectanceMbvh(std::vector<PrimitiveType *>& primitives_,
-                                                                                        std::vector<SilhouettePrimitive<DIM> *>& silhouettes_):
+ReflectanceMbvh<WIDTH, DIM, PrimitiveType, NodeType, NodeBound>::ReflectanceMbvh(std::vector<PrimitiveType *>& primitives_,
+                                                                                 std::vector<SilhouettePrimitive<DIM> *>& silhouettes_):
 Mbvh<WIDTH, DIM,
      PrimitiveType,
      SilhouettePrimitive<DIM>,
@@ -134,7 +134,7 @@ Mbvh<WIDTH, DIM,
 }
 
 template <size_t DIM>
-inline void assignGeometricDataToNode(const ReflectanceBvhNode<DIM>& bvhNode, ReflectanceMbvhNode<DIM>& mbvhNode, int index)
+void assignGeometricDataToNode(const ReflectanceBvhNode<DIM>& bvhNode, ReflectanceMbvhNode<DIM>& mbvhNode, int index)
 {
     // assign bvh node's bounding cone and coefficient values to mbvh node
     for (size_t j = 0; j < DIM; j++) {
@@ -148,9 +148,9 @@ inline void assignGeometricDataToNode(const ReflectanceBvhNode<DIM>& bvhNode, Re
 }
 
 template <typename NodeType, typename LeafNodeType, typename PrimitiveBound>
-inline void populateLeafNode(const NodeType& node,
-                             const std::vector<ReflectanceLineSegment<PrimitiveBound> *>& primitives,
-                             std::vector<LeafNodeType>& leafNodes, size_t WIDTH)
+void populateLeafNode(const NodeType& node,
+                      const std::vector<ReflectanceLineSegment<PrimitiveBound> *>& primitives,
+                      std::vector<LeafNodeType>& leafNodes, size_t WIDTH)
 {
     int leafOffset = -node.child[0] - 1;
     int referenceOffset = node.child[2];
@@ -179,9 +179,9 @@ inline void populateLeafNode(const NodeType& node,
 }
 
 template <typename NodeType, typename LeafNodeType, typename PrimitiveBound>
-inline void populateLeafNode(const NodeType& node,
-                             const std::vector<ReflectanceTriangle<PrimitiveBound> *>& primitives,
-                             std::vector<LeafNodeType>& leafNodes, size_t WIDTH)
+void populateLeafNode(const NodeType& node,
+                      const std::vector<ReflectanceTriangle<PrimitiveBound> *>& primitives,
+                      std::vector<LeafNodeType>& leafNodes, size_t WIDTH)
 {
     int leafOffset = -node.child[0] - 1;
     int referenceOffset = node.child[2];
@@ -210,7 +210,7 @@ inline void populateLeafNode(const NodeType& node,
 }
 
 template <size_t DIM>
-inline void assignBoundingCone(const BoundingCone<DIM>& cone, ReflectanceMbvhNode<DIM>& node, int index)
+void assignBoundingCone(const BoundingCone<DIM>& cone, ReflectanceMbvhNode<DIM>& node, int index)
 {
     for (size_t i = 0; i < DIM; i++) {
         node.coneAxis[i][index] = cone.axis[i];
@@ -221,17 +221,17 @@ inline void assignBoundingCone(const BoundingCone<DIM>& cone, ReflectanceMbvhNod
 }
 
 template <size_t DIM>
-inline void mergeBoundingCones(const BoundingCone<DIM>& coneA, const BoundingCone<DIM>& coneB,
-                               const BoundingBox<DIM>& boxA, const BoundingBox<DIM>& boxB,
-                               const BoundingBox<DIM>& mergedBox, ReflectanceMbvhNode<DIM>& node,
-                               BoundingCone<DIM>& cone)
+void mergeBoundingCones(const BoundingCone<DIM>& coneA, const BoundingCone<DIM>& coneB,
+                        const BoundingBox<DIM>& boxA, const BoundingBox<DIM>& boxB,
+                        const BoundingBox<DIM>& mergedBox, ReflectanceMbvhNode<DIM>& node,
+                        BoundingCone<DIM>& cone)
 {
     cone = mergeBoundingCones<DIM>(coneA, coneB, boxA.centroid(), boxB.centroid(), mergedBox.centroid());
 }
 
 template <size_t WIDTH, size_t DIM, typename NodeType, typename PrimitiveType>
-inline std::pair<BoundingBox<DIM>, BoundingCone<DIM>> refitRecursive(const std::vector<PrimitiveType *>& primitives,
-                                                                     std::vector<NodeType>& flatTree, int nodeIndex)
+std::pair<BoundingBox<DIM>, BoundingCone<DIM>> refitRecursive(const std::vector<PrimitiveType *>& primitives,
+                                                              std::vector<NodeType>& flatTree, int nodeIndex)
 {
     BoundingBox<DIM> box;
     BoundingCone<DIM> cone;
@@ -284,7 +284,7 @@ inline std::pair<BoundingBox<DIM>, BoundingCone<DIM>> refitRecursive(const std::
 }
 
 template <size_t WIDTH, size_t DIM, typename PrimitiveType, typename NodeType, typename NodeBound>
-inline void ReflectanceMbvh<WIDTH, DIM, PrimitiveType, NodeType, NodeBound>::refit()
+void ReflectanceMbvh<WIDTH, DIM, PrimitiveType, NodeType, NodeBound>::refit()
 {
     using MbvhBase = Mbvh<WIDTH, DIM,
                           PrimitiveType,
@@ -304,8 +304,8 @@ inline void ReflectanceMbvh<WIDTH, DIM, PrimitiveType, NodeType, NodeBound>::ref
 }
 
 template <size_t WIDTH, size_t DIM, typename NodeType, typename PrimitiveType>
-inline std::pair<float, float> updateCoefficientValuesRecursive(const std::vector<PrimitiveType *>& primitives,
-                                                                std::vector<NodeType>& flatTree, int nodeIndex)
+std::pair<float, float> updateCoefficientValuesRecursive(const std::vector<PrimitiveType *>& primitives,
+                                                         std::vector<NodeType>& flatTree, int nodeIndex)
 {
     NodeType& node(flatTree[nodeIndex]);
     std::pair<float, float> minMaxCoefficientValues = std::make_pair(maxFloat, minFloat);
@@ -343,8 +343,8 @@ inline std::pair<float, float> updateCoefficientValuesRecursive(const std::vecto
 }
 
 template <size_t WIDTH, size_t DIM, typename PrimitiveType, typename NodeType, typename NodeBound>
-inline void ReflectanceMbvh<WIDTH, DIM, PrimitiveType, NodeType, NodeBound>::updateCoefficientValues(const std::vector<float>& minCoefficientValues,
-                                                                                                     const std::vector<float>& maxCoefficientValues)
+void ReflectanceMbvh<WIDTH, DIM, PrimitiveType, NodeType, NodeBound>::updateCoefficientValues(const std::vector<float>& minCoefficientValues,
+                                                                                              const std::vector<float>& maxCoefficientValues)
 {
     using MbvhBase = Mbvh<WIDTH, DIM,
                           PrimitiveType,
@@ -384,11 +384,11 @@ inline void ReflectanceMbvh<WIDTH, DIM, PrimitiveType, NodeType, NodeBound>::upd
 }
 
 template <size_t WIDTH, size_t DIM, typename PrimitiveType, typename NodeType, typename NodeBound>
-inline MaskP<FCPW_MBVH_BRANCHING_FACTOR> ReflectanceMbvh<WIDTH, DIM, PrimitiveType, NodeType, NodeBound>::visitNodes(
-                                                                    const enokiVector<DIM>& sc, float r2, int nodeIndex,
-                                                                    FloatP<FCPW_MBVH_BRANCHING_FACTOR>& r2MinBound,
-                                                                    FloatP<FCPW_MBVH_BRANCHING_FACTOR>& r2MaxBound,
-                                                                    MaskP<FCPW_MBVH_BRANCHING_FACTOR>& hasSilhouettes) const
+MaskP<FCPW_MBVH_BRANCHING_FACTOR> ReflectanceMbvh<WIDTH, DIM, PrimitiveType, NodeType, NodeBound>::visitNodes(
+                                                                const enokiVector<DIM>& sc, float r2, int nodeIndex,
+                                                                FloatP<FCPW_MBVH_BRANCHING_FACTOR>& r2MinBound,
+                                                                FloatP<FCPW_MBVH_BRANCHING_FACTOR>& r2MaxBound,
+                                                                MaskP<FCPW_MBVH_BRANCHING_FACTOR>& hasSilhouettes) const
 {
     using MbvhBase = Mbvh<WIDTH, DIM,
                           PrimitiveType,
@@ -443,9 +443,9 @@ inline MaskP<FCPW_MBVH_BRANCHING_FACTOR> ReflectanceMbvh<WIDTH, DIM, PrimitiveTy
 }
 
 template <size_t WIDTH>
-inline void enqueueNodes(const IntP<WIDTH>& child, const FloatP<WIDTH>& tMin, const FloatP<WIDTH>& tMax,
-                         const MaskP<WIDTH>& hasSilhouettes, const MaskP<WIDTH>& mask, float minDist,
-                         float& tMaxMin, int& stackPtr, TraversalStack *subtree)
+void enqueueNodes(const IntP<WIDTH>& child, const FloatP<WIDTH>& tMin, const FloatP<WIDTH>& tMax,
+                  const MaskP<WIDTH>& hasSilhouettes, const MaskP<WIDTH>& mask, float minDist,
+                  float& tMaxMin, int& stackPtr, TraversalStack *subtree)
 {
     // enqueue nodes
     int closestIndex = -1;
@@ -470,9 +470,9 @@ inline void enqueueNodes(const IntP<WIDTH>& child, const FloatP<WIDTH>& tMin, co
 }
 
 template <>
-inline void enqueueNodes<4>(const IntP<4>& child, const FloatP<4>& tMin, const FloatP<4>& tMax,
-                            const MaskP<4>& hasSilhouettes, const MaskP<4>& mask, float minDist,
-                            float& tMaxMin, int& stackPtr, TraversalStack *subtree)
+void enqueueNodes<4>(const IntP<4>& child, const FloatP<4>& tMin, const FloatP<4>& tMax,
+                     const MaskP<4>& hasSilhouettes, const MaskP<4>& mask, float minDist,
+                     float& tMaxMin, int& stackPtr, TraversalStack *subtree)
 {
     // sort nodes
     int order[4] = {0, 1, 2, 3};
@@ -492,9 +492,9 @@ inline void enqueueNodes<4>(const IntP<4>& child, const FloatP<4>& tMin, const F
 }
 
 template <size_t WIDTH, size_t DIM, typename PrimitiveType, typename NodeType, typename NodeBound>
-inline int ReflectanceMbvh<WIDTH, DIM, PrimitiveType, NodeType, NodeBound>::computeSquaredStarRadius(BoundingSphere<DIM>& s,
-                                                                                                     bool flipNormalOrientation,
-                                                                                                     float silhouettePrecision) const
+int ReflectanceMbvh<WIDTH, DIM, PrimitiveType, NodeType, NodeBound>::computeSquaredStarRadius(BoundingSphere<DIM>& s,
+                                                                                              bool flipNormalOrientation,
+                                                                                              float silhouettePrecision) const
 {
     using MbvhBase = Mbvh<WIDTH, DIM,
                           PrimitiveType,

@@ -293,28 +293,28 @@ float GPUSampleStatistics<T, DIM>::getMeanWalkLength() const
     return (float)totalWalkLength/N;
 }
 
-GPUComputeSampleBoundaryDistance::GPUComputeSampleBoundaryDistance(GPUBuffer& samplePoints_,
-                                                                   uint32_t nSamplePoints_):
+inline GPUComputeSampleBoundaryDistance::GPUComputeSampleBoundaryDistance(GPUBuffer& samplePoints_,
+                                                                          uint32_t nSamplePoints_):
 samplePoints(samplePoints_),
 nSamplePoints(nSamplePoints_)
 {
     // do nothing
 }
 
-void GPUComputeSampleBoundaryDistance::setResources(const ShaderCursor& cursor, bool printLogs) const
+inline void GPUComputeSampleBoundaryDistance::setResources(const ShaderCursor& cursor, bool printLogs) const
 {
     cursor.getPath("samplePoints").setBinding(samplePoints.buffer);
     cursor.getPath("nSamplePoints").setData(nSamplePoints);
     if (printLogs) printReflectionInfo(cursor, 3, "computeSampleBoundaryDistance");
 }
 
-GPUSeedRngs::GPUSeedRngs():
+inline GPUSeedRngs::GPUSeedRngs():
 nRngs(0)
 {
     // do nothing
 }
 
-void GPUSeedRngs::allocate(GPUContext& context, uint32_t nRngs_)
+inline void GPUSeedRngs::allocate(GPUContext& context, uint32_t nRngs_)
 {
     auto generateRandomSeeds = [](uint32_t nRandomSeeds) -> std::vector<uint64_t> {
         // read the clock once for the base state seed; each rng is decorrelated by a
@@ -336,7 +336,7 @@ void GPUSeedRngs::allocate(GPUContext& context, uint32_t nRngs_)
     rngs.allocate<pcg32>(context.device, true, nullptr, nRngs);
 }
 
-void GPUSeedRngs::setResources(const ShaderCursor& cursor, bool printLogs) const
+inline void GPUSeedRngs::setResources(const ShaderCursor& cursor, bool printLogs) const
 {
     cursor.getPath("randomSeeds").setBinding(randomSeeds.buffer);
     cursor.getPath("rngs").setBinding(rngs.buffer);
@@ -344,20 +344,20 @@ void GPUSeedRngs::setResources(const ShaderCursor& cursor, bool printLogs) const
     if (printLogs) printReflectionInfo(cursor, 4, "seedRngs");
 }
 
-GPUBuffer& GPUSeedRngs::getBuffer()
+inline GPUBuffer& GPUSeedRngs::getBuffer()
 {
     return rngs;
 }
 
-GPUResetSampleStatistics::GPUResetSampleStatistics(GPUBuffer& sampleStatistics_,
-                                                   uint32_t nSamplePoints_):
+inline GPUResetSampleStatistics::GPUResetSampleStatistics(GPUBuffer& sampleStatistics_,
+                                                          uint32_t nSamplePoints_):
 sampleStatistics(sampleStatistics_),
 nSamplePoints(nSamplePoints_)
 {
     // do nothing
 }
 
-void GPUResetSampleStatistics::setResources(const ShaderCursor& cursor, bool printLogs) const
+inline void GPUResetSampleStatistics::setResources(const ShaderCursor& cursor, bool printLogs) const
 {
     cursor.getPath("sampleStatistics").setBinding(sampleStatistics.buffer);
     cursor.getPath("nSamplePoints").setData(nSamplePoints);
@@ -411,15 +411,15 @@ T GPUBVCEvaluationOutputs<T, DIM>::getEstimatedGradient(int channel) const
     return gradient[channel];
 }
 
-GPUResetBVCEvaluationStatistics::GPUResetBVCEvaluationStatistics(GPUBuffer& evaluationStatistics_,
-                                                                 uint32_t nEvaluationPoints_):
+inline GPUResetBVCEvaluationStatistics::GPUResetBVCEvaluationStatistics(GPUBuffer& evaluationStatistics_,
+                                                                        uint32_t nEvaluationPoints_):
 evaluationStatistics(evaluationStatistics_),
 nEvaluationPoints(nEvaluationPoints_)
 {
     // do nothing
 }
 
-void GPUResetBVCEvaluationStatistics::setResources(const ShaderCursor& cursor, bool printLogs) const
+inline void GPUResetBVCEvaluationStatistics::setResources(const ShaderCursor& cursor, bool printLogs) const
 {
     cursor.getPath("evaluationStatistics").setBinding(evaluationStatistics.buffer);
     cursor.getPath("nEvaluationPoints").setData(nEvaluationPoints);

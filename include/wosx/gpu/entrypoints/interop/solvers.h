@@ -230,7 +230,7 @@ private:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Implementation
 
-void GPUWalkSettings::setResources(const ShaderCursor& cursor, bool printLogs) const
+inline void GPUWalkSettings::setResources(const ShaderCursor& cursor, bool printLogs) const
 {
     cursor["epsilonShellForAbsorbingBoundary"].setData(epsilonShellForAbsorbingBoundary);
     cursor["epsilonShellForReflectingBoundary"].setData(epsilonShellForReflectingBoundary);
@@ -247,7 +247,7 @@ void GPUWalkSettings::setResources(const ShaderCursor& cursor, bool printLogs) c
     if (printLogs) printReflectionInfo(cursor, 12, getReflectionType());
 }
 
-std::string GPUWalkSettings::getReflectionType() const
+inline std::string GPUWalkSettings::getReflectionType() const
 {
     return "WalkSettings";
 }
@@ -312,12 +312,12 @@ std::string GPUWalkOnStars<T, DIM>::getReflectionType() const
     return "WalkOnStars<" + arguments + ">";
 }
 
-GPURunPointEstimator::GPURunPointEstimator(GPUBuffer& samplePoints_,
-                                           GPUBuffer& rngs_,
-                                           GPUBuffer& sampleStatistics_,
-                                           uint32_t nInputSamplePoints_,
-                                           uint32_t nSamplePoints_,
-                                           uint32_t nWalks_):
+inline GPURunPointEstimator::GPURunPointEstimator(GPUBuffer& samplePoints_,
+                                                  GPUBuffer& rngs_,
+                                                  GPUBuffer& sampleStatistics_,
+                                                  uint32_t nInputSamplePoints_,
+                                                  uint32_t nSamplePoints_,
+                                                  uint32_t nWalks_):
 samplePoints(samplePoints_),
 rngs(rngs_),
 sampleStatistics(sampleStatistics_),
@@ -328,7 +328,7 @@ nWalks(nWalks_)
     // do nothing
 }
 
-void GPURunPointEstimator::setResources(const ShaderCursor& cursor, bool printLogs) const
+inline void GPURunPointEstimator::setResources(const ShaderCursor& cursor, bool printLogs) const
 {
     cursor.getPath("samplePoints").setBinding(samplePoints.buffer);
     cursor.getPath("rngs").setBinding(rngs.buffer);
@@ -339,14 +339,14 @@ void GPURunPointEstimator::setResources(const ShaderCursor& cursor, bool printLo
     if (printLogs) printReflectionInfo(cursor, 7, "runPointEstimator");
 }
 
-GPURunPersistentPointEstimator::GPURunPersistentPointEstimator(GPUBuffer& samplePoints_,
-                                                               GPUBuffer& rngs_,
-                                                               GPUBuffer& sampleStatistics_,
-                                                               GPUBuffer& globalCounter_,
-                                                               GPUBuffer& locks_,
-                                                               uint64_t nTotalWorkItems_,
-                                                               uint32_t nInputSamplePoints_,
-                                                               uint32_t nPersistentThreads_):
+inline GPURunPersistentPointEstimator::GPURunPersistentPointEstimator(GPUBuffer& samplePoints_,
+                                                                      GPUBuffer& rngs_,
+                                                                      GPUBuffer& sampleStatistics_,
+                                                                      GPUBuffer& globalCounter_,
+                                                                      GPUBuffer& locks_,
+                                                                      uint64_t nTotalWorkItems_,
+                                                                      uint32_t nInputSamplePoints_,
+                                                                      uint32_t nPersistentThreads_):
 samplePoints(samplePoints_),
 rngs(rngs_),
 sampleStatistics(sampleStatistics_),
@@ -359,7 +359,7 @@ nPersistentThreads(nPersistentThreads_)
     // do nothing
 }
 
-void GPURunPersistentPointEstimator::setResources(const ShaderCursor& cursor, bool printLogs) const
+inline void GPURunPersistentPointEstimator::setResources(const ShaderCursor& cursor, bool printLogs) const
 {
     cursor.getPath("samplePoints").setBinding(samplePoints.buffer);
     cursor.getPath("rngs").setBinding(rngs.buffer);
@@ -398,11 +398,11 @@ std::string GPUBoundaryValueCaching<T, DIM>::getReflectionType() const
     return "BoundaryValueCaching<" + arguments + ">";
 }
 
-GPUBVCGetBoundaryData::GPUBVCGetBoundaryData(GPUBuffer& samplePoints_,
-                                             GPUBuffer& sampleStatistics_,
-                                             GPUBuffer& boundaryData_,
-                                             uint32_t nInputSamplePoints_,
-                                             uint32_t nSamplePoints_):
+inline GPUBVCGetBoundaryData::GPUBVCGetBoundaryData(GPUBuffer& samplePoints_,
+                                                    GPUBuffer& sampleStatistics_,
+                                                    GPUBuffer& boundaryData_,
+                                                    uint32_t nInputSamplePoints_,
+                                                    uint32_t nSamplePoints_):
 samplePoints(samplePoints_),
 sampleStatistics(sampleStatistics_),
 boundaryData(boundaryData_),
@@ -412,7 +412,7 @@ nSamplePoints(nSamplePoints_)
     // do nothing
 }
 
-void GPUBVCGetBoundaryData::setResources(const ShaderCursor& cursor, bool printLogs) const
+inline void GPUBVCGetBoundaryData::setResources(const ShaderCursor& cursor, bool printLogs) const
 {
     cursor.getPath("samplePoints").setBinding(samplePoints.buffer);
     cursor.getPath("sampleStatistics").setBinding(sampleStatistics.buffer);
@@ -422,14 +422,14 @@ void GPUBVCGetBoundaryData::setResources(const ShaderCursor& cursor, bool printL
     if (printLogs) printReflectionInfo(cursor, 6, "getBoundaryData");
 }
 
-GPUBVCSplatBoundaryData::GPUBVCSplatBoundaryData(GPUBuffer& samplePoints_,
-                                                 GPUBuffer& boundaryData_,
-                                                 GPUBuffer& evaluationPoints_,
-                                                 GPUBuffer& evaluationStatistics_,
-                                                 float radiusClamp_,
-                                                 float kernelRegularization_,
-                                                 uint32_t nSamplesSplatted_,
-                                                 uint32_t nEvaluationPoints_):
+inline GPUBVCSplatBoundaryData::GPUBVCSplatBoundaryData(GPUBuffer& samplePoints_,
+                                                        GPUBuffer& boundaryData_,
+                                                        GPUBuffer& evaluationPoints_,
+                                                        GPUBuffer& evaluationStatistics_,
+                                                        float radiusClamp_,
+                                                        float kernelRegularization_,
+                                                        uint32_t nSamplesSplatted_,
+                                                        uint32_t nEvaluationPoints_):
 samplePoints(samplePoints_),
 boundaryData(boundaryData_),
 evaluationPoints(evaluationPoints_),
@@ -442,7 +442,7 @@ nEvaluationPoints(nEvaluationPoints_)
     // do nothing
 }
 
-void GPUBVCSplatBoundaryData::setResources(const ShaderCursor& cursor, bool printLogs) const
+inline void GPUBVCSplatBoundaryData::setResources(const ShaderCursor& cursor, bool printLogs) const
 {
     cursor.getPath("samplePoints").setBinding(samplePoints.buffer);
     cursor.getPath("boundaryData").setBinding(boundaryData.buffer);
@@ -456,18 +456,18 @@ void GPUBVCSplatBoundaryData::setResources(const ShaderCursor& cursor, bool prin
     if (printLogs) printReflectionInfo(cursor, 10, "splatBoundaryData");
 }
 
-void GPUBVCSplatBoundaryData::setDispatchResources(const ShaderCursor& cursor, uint32_t dispatchIndex) const
+inline void GPUBVCSplatBoundaryData::setDispatchResources(const ShaderCursor& cursor, uint32_t dispatchIndex) const
 {
     cursor.getPath("sampleIndex").setData(dispatchIndex);
 }
 
-GPUBVCSplatSourceData::GPUBVCSplatSourceData(GPUBuffer& samplePoints_,
-                                             GPUBuffer& evaluationPoints_,
-                                             GPUBuffer& evaluationStatistics_,
-                                             float radiusClamp_,
-                                             float kernelRegularization_,
-                                             uint32_t nSamplesSplatted_,
-                                             uint32_t nEvaluationPoints_):
+inline GPUBVCSplatSourceData::GPUBVCSplatSourceData(GPUBuffer& samplePoints_,
+                                                    GPUBuffer& evaluationPoints_,
+                                                    GPUBuffer& evaluationStatistics_,
+                                                    float radiusClamp_,
+                                                    float kernelRegularization_,
+                                                    uint32_t nSamplesSplatted_,
+                                                    uint32_t nEvaluationPoints_):
 samplePoints(samplePoints_),
 evaluationPoints(evaluationPoints_),
 evaluationStatistics(evaluationStatistics_),
@@ -479,7 +479,7 @@ nEvaluationPoints(nEvaluationPoints_)
     // do nothing
 }
 
-void GPUBVCSplatSourceData::setResources(const ShaderCursor& cursor, bool printLogs) const
+inline void GPUBVCSplatSourceData::setResources(const ShaderCursor& cursor, bool printLogs) const
 {
     cursor.getPath("samplePoints").setBinding(samplePoints.buffer);
     cursor.getPath("evaluationPoints").setBinding(evaluationPoints.buffer);
@@ -492,7 +492,7 @@ void GPUBVCSplatSourceData::setResources(const ShaderCursor& cursor, bool printL
     if (printLogs) printReflectionInfo(cursor, 9, "splatSourceData");
 }
 
-void GPUBVCSplatSourceData::setDispatchResources(const ShaderCursor& cursor, uint32_t dispatchIndex) const
+inline void GPUBVCSplatSourceData::setDispatchResources(const ShaderCursor& cursor, uint32_t dispatchIndex) const
 {
     cursor.getPath("sampleIndex").setData(dispatchIndex);
 }

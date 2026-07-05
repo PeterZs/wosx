@@ -234,32 +234,32 @@ private:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Implementation
 
-void GPUEmptyAbsorbingBoundaryHandler::allocate(GPUContext& context)
+inline void GPUEmptyAbsorbingBoundaryHandler::allocate(GPUContext& context)
 {
     // do nothing
 }
 
-void GPUEmptyAbsorbingBoundaryHandler::setResources(const ShaderCursor& cursor, bool printLogs) const
+inline void GPUEmptyAbsorbingBoundaryHandler::setResources(const ShaderCursor& cursor, bool printLogs) const
 {
     // do nothing
 }
 
-std::string GPUEmptyAbsorbingBoundaryHandler::getReflectionType() const
+inline std::string GPUEmptyAbsorbingBoundaryHandler::getReflectionType() const
 {
     return "";
 }
 
-std::string GPUEmptyAbsorbingBoundaryHandler::getBackendType() const
+inline std::string GPUEmptyAbsorbingBoundaryHandler::getBackendType() const
 {
     return "Empty";
 }
 
-std::string GPUEmptyAbsorbingBoundaryHandler::getName() const
+inline std::string GPUEmptyAbsorbingBoundaryHandler::getName() const
 {
     return "";
 }
 
-GPUAbsorbingBoundaryType GPUEmptyAbsorbingBoundaryHandler::getBoundaryType() const
+inline GPUAbsorbingBoundaryType GPUEmptyAbsorbingBoundaryHandler::getBoundaryType() const
 {
     return GPUAbsorbingBoundaryType::Empty;
 }
@@ -372,32 +372,32 @@ GPUAbsorbingBoundaryType GPUSdfDirichletBoundaryHandler<DIM>::getBoundaryType() 
     return GPUAbsorbingBoundaryType::SdfBased;
 }
 
-void GPUEmptyReflectingBoundaryHandler::allocate(GPUContext& context)
+inline void GPUEmptyReflectingBoundaryHandler::allocate(GPUContext& context)
 {
     // do nothing
 }
 
-void GPUEmptyReflectingBoundaryHandler::setResources(const ShaderCursor& cursor, bool printLogs) const
+inline void GPUEmptyReflectingBoundaryHandler::setResources(const ShaderCursor& cursor, bool printLogs) const
 {
     // do nothing
 }
 
-std::string GPUEmptyReflectingBoundaryHandler::getReflectionType() const
+inline std::string GPUEmptyReflectingBoundaryHandler::getReflectionType() const
 {
     return "";
 }
 
-std::string GPUEmptyReflectingBoundaryHandler::getBackendType() const
+inline std::string GPUEmptyReflectingBoundaryHandler::getBackendType() const
 {
     return "Empty";
 }
 
-std::string GPUEmptyReflectingBoundaryHandler::getName() const
+inline std::string GPUEmptyReflectingBoundaryHandler::getName() const
 {
     return "";
 }
 
-GPUReflectingBoundaryType GPUEmptyReflectingBoundaryHandler::getBoundaryType() const
+inline GPUReflectingBoundaryType GPUEmptyReflectingBoundaryHandler::getBoundaryType() const
 {
     return GPUReflectingBoundaryType::Empty;
 }

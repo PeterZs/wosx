@@ -250,55 +250,55 @@ private:
     UniformTriangleBoundarySampler<float> sampler;
 };
 
-std::shared_ptr<GPUBoundarySampler> createUniformBoundarySampler(std::shared_ptr<GPUGeometricQueries<2>> geometricQueries,
-                                                                 const std::vector<Vector2>& positions,
-                                                                 const std::vector<Vector2i>& indices,
-                                                                 std::function<bool(const Vector2&)> insideSolveRegion,
-                                                                 float normalOffsetForBoundary,
-                                                                 bool solveDoubleSided,
-                                                                 bool computeWeightedNormals=false);
-std::shared_ptr<GPUBoundarySampler> createUniformBoundarySampler(std::shared_ptr<GPUGeometricQueries<2>> geometricQueries,
-                                                                 const std::vector<Vector2>& positions,
-                                                                 const std::vector<Vector2i>& indices,
-                                                                 const std::vector<float>& primitiveWeights,
-                                                                 std::function<bool(const Vector2&)> insideSolveRegion,
-                                                                 float normalOffsetForBoundary,
-                                                                 bool solveDoubleSided,
-                                                                 bool computeWeightedNormals=false);
-std::shared_ptr<GPUBoundarySampler> createUniformBoundarySampler(std::shared_ptr<GPUGeometricQueries<2>> geometricQueries,
-                                                                 const std::vector<Vector2>& positions,
-                                                                 const std::vector<Vector2i>& indices,
-                                                                 const std::vector<float>& primitiveWeights,
-                                                                 const std::vector<float>& primitiveWeightsNormalAligned,
-                                                                 std::function<bool(const Vector2&)> insideSolveRegion,
-                                                                 float normalOffsetForBoundary,
-                                                                 bool solveDoubleSided,
-                                                                 bool computeWeightedNormals=false);
+inline std::shared_ptr<GPUBoundarySampler> createUniformBoundarySampler(std::shared_ptr<GPUGeometricQueries<2>> geometricQueries,
+                                                                        const std::vector<Vector2>& positions,
+                                                                        const std::vector<Vector2i>& indices,
+                                                                        std::function<bool(const Vector2&)> insideSolveRegion,
+                                                                        float normalOffsetForBoundary,
+                                                                        bool solveDoubleSided,
+                                                                        bool computeWeightedNormals=false);
+inline std::shared_ptr<GPUBoundarySampler> createUniformBoundarySampler(std::shared_ptr<GPUGeometricQueries<2>> geometricQueries,
+                                                                        const std::vector<Vector2>& positions,
+                                                                        const std::vector<Vector2i>& indices,
+                                                                        const std::vector<float>& primitiveWeights,
+                                                                        std::function<bool(const Vector2&)> insideSolveRegion,
+                                                                        float normalOffsetForBoundary,
+                                                                        bool solveDoubleSided,
+                                                                        bool computeWeightedNormals=false);
+inline std::shared_ptr<GPUBoundarySampler> createUniformBoundarySampler(std::shared_ptr<GPUGeometricQueries<2>> geometricQueries,
+                                                                        const std::vector<Vector2>& positions,
+                                                                        const std::vector<Vector2i>& indices,
+                                                                        const std::vector<float>& primitiveWeights,
+                                                                        const std::vector<float>& primitiveWeightsNormalAligned,
+                                                                        std::function<bool(const Vector2&)> insideSolveRegion,
+                                                                        float normalOffsetForBoundary,
+                                                                        bool solveDoubleSided,
+                                                                        bool computeWeightedNormals=false);
 
-std::shared_ptr<GPUBoundarySampler> createUniformBoundarySampler(std::shared_ptr<GPUGeometricQueries<3>> geometricQueries,
-                                                                 const std::vector<Vector3>& positions,
-                                                                 const std::vector<Vector3i>& indices,
-                                                                 std::function<bool(const Vector3&)> insideSolveRegion,
-                                                                 float normalOffsetForBoundary,
-                                                                 bool solveDoubleSided,
-                                                                 bool computeWeightedNormals=false);
-std::shared_ptr<GPUBoundarySampler> createUniformBoundarySampler(std::shared_ptr<GPUGeometricQueries<3>> geometricQueries,
-                                                                 const std::vector<Vector3>& positions,
-                                                                 const std::vector<Vector3i>& indices,
-                                                                 const std::vector<float>& primitiveWeights,
-                                                                 std::function<bool(const Vector3&)> insideSolveRegion,
-                                                                 float normalOffsetForBoundary,
-                                                                 bool solveDoubleSided,
-                                                                 bool computeWeightedNormals=false);
-std::shared_ptr<GPUBoundarySampler> createUniformBoundarySampler(std::shared_ptr<GPUGeometricQueries<3>> geometricQueries,
-                                                                 const std::vector<Vector3>& positions,
-                                                                 const std::vector<Vector3i>& indices,
-                                                                 const std::vector<float>& primitiveWeights,
-                                                                 const std::vector<float>& primitiveWeightsNormalAligned,
-                                                                 std::function<bool(const Vector3&)> insideSolveRegion,
-                                                                 float normalOffsetForBoundary,
-                                                                 bool solveDoubleSided,
-                                                                 bool computeWeightedNormals=false);
+inline std::shared_ptr<GPUBoundarySampler> createUniformBoundarySampler(std::shared_ptr<GPUGeometricQueries<3>> geometricQueries,
+                                                                        const std::vector<Vector3>& positions,
+                                                                        const std::vector<Vector3i>& indices,
+                                                                        std::function<bool(const Vector3&)> insideSolveRegion,
+                                                                        float normalOffsetForBoundary,
+                                                                        bool solveDoubleSided,
+                                                                        bool computeWeightedNormals=false);
+inline std::shared_ptr<GPUBoundarySampler> createUniformBoundarySampler(std::shared_ptr<GPUGeometricQueries<3>> geometricQueries,
+                                                                        const std::vector<Vector3>& positions,
+                                                                        const std::vector<Vector3i>& indices,
+                                                                        const std::vector<float>& primitiveWeights,
+                                                                        std::function<bool(const Vector3&)> insideSolveRegion,
+                                                                        float normalOffsetForBoundary,
+                                                                        bool solveDoubleSided,
+                                                                        bool computeWeightedNormals=false);
+inline std::shared_ptr<GPUBoundarySampler> createUniformBoundarySampler(std::shared_ptr<GPUGeometricQueries<3>> geometricQueries,
+                                                                        const std::vector<Vector3>& positions,
+                                                                        const std::vector<Vector3i>& indices,
+                                                                        const std::vector<float>& primitiveWeights,
+                                                                        const std::vector<float>& primitiveWeightsNormalAligned,
+                                                                        std::function<bool(const Vector3&)> insideSolveRegion,
+                                                                        float normalOffsetForBoundary,
+                                                                        bool solveDoubleSided,
+                                                                        bool computeWeightedNormals=false);
 
 template <size_t DIM>
 class GPUGenerateDomainSamples: public GPUShaderEntryPoint {
@@ -369,21 +369,21 @@ private:
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Implementation
 
-void GPUCDFTable::allocate(GPUContext& context, const CDFTable& cdfTable)
+inline void GPUCDFTable::allocate(GPUContext& context, const CDFTable& cdfTable)
 {
     const std::vector<float>& tableData = cdfTable.getTable();
     table.allocate<float>(context, false, tableData);
     size = (uint32_t)tableData.size();
 }
 
-void GPUCDFTable::setResources(const ShaderCursor& cursor, bool printLogs) const
+inline void GPUCDFTable::setResources(const ShaderCursor& cursor, bool printLogs) const
 {
     cursor["table"].setBinding(table.buffer);
     cursor["size"].setData(size);
     if (printLogs) printReflectionInfo(cursor, 2, getReflectionType());
 }
 
-std::string GPUCDFTable::getReflectionType() const
+inline std::string GPUCDFTable::getReflectionType() const
 {
     return "CDFTable";
 }
@@ -552,7 +552,7 @@ std::vector<T> toGPUVectorType(const std::vector<S>& u) {
 }
 
 template <>
-std::vector<float2> toGPUVectorType(const std::vector<Vector2>& u) {
+inline std::vector<float2> toGPUVectorType(const std::vector<Vector2>& u) {
     int size = (int)u.size();
     std::vector<float2> v(size);
     for (int i = 0; i < size; i++) {
@@ -564,7 +564,7 @@ std::vector<float2> toGPUVectorType(const std::vector<Vector2>& u) {
 }
 
 template <>
-std::vector<uint2> toGPUVectorType(const std::vector<Vector2i>& u) {
+inline std::vector<uint2> toGPUVectorType(const std::vector<Vector2i>& u) {
     int size = (int)u.size();
     std::vector<uint2> v(size);
     for (int i = 0; i < size; i++) {
@@ -576,7 +576,7 @@ std::vector<uint2> toGPUVectorType(const std::vector<Vector2i>& u) {
 }
 
 template <>
-std::vector<float3> toGPUVectorType(const std::vector<Vector3>& u) {
+inline std::vector<float3> toGPUVectorType(const std::vector<Vector3>& u) {
     int size = (int)u.size();
     std::vector<float3> v(size);
     for (int i = 0; i < size; i++) {
@@ -589,7 +589,7 @@ std::vector<float3> toGPUVectorType(const std::vector<Vector3>& u) {
 }
 
 template <>
-std::vector<uint3> toGPUVectorType(const std::vector<Vector3i>& u) {
+inline std::vector<uint3> toGPUVectorType(const std::vector<Vector3i>& u) {
     int size = (int)u.size();
     std::vector<uint3> v(size);
     for (int i = 0; i < size; i++) {
@@ -643,15 +643,15 @@ int GPUEmptyBoundarySampler<DIM>::getSampleCount(int nTotalSamples, bool boundar
     return 0;
 }
 
-GPUUniformLineSegmentBoundarySampler::GPUUniformLineSegmentBoundarySampler(std::shared_ptr<GPUGeometricQueries<2>> geometricQueries_,
-                                                                           const std::vector<Vector2>& positions_,
-                                                                           const std::vector<Vector2i>& indices_,
-                                                                           const std::vector<float>& primitiveWeights_,
-                                                                           const std::vector<float>& primitiveWeightsNormalAligned_,
-                                                                           std::function<bool(const Vector2&)> insideSolveRegion_,
-                                                                           float normalOffsetForBoundary_,
-                                                                           bool solveDoubleSided_,
-                                                                           bool computeWeightedNormals_):
+inline GPUUniformLineSegmentBoundarySampler::GPUUniformLineSegmentBoundarySampler(std::shared_ptr<GPUGeometricQueries<2>> geometricQueries_,
+                                                                                  const std::vector<Vector2>& positions_,
+                                                                                  const std::vector<Vector2i>& indices_,
+                                                                                  const std::vector<float>& primitiveWeights_,
+                                                                                  const std::vector<float>& primitiveWeightsNormalAligned_,
+                                                                                  std::function<bool(const Vector2&)> insideSolveRegion_,
+                                                                                  float normalOffsetForBoundary_,
+                                                                                  bool solveDoubleSided_,
+                                                                                  bool computeWeightedNormals_):
 geometricQueries(geometricQueries_),
 normalOffsetForBoundary(normalOffsetForBoundary_),
 solveDoubleSided(solveDoubleSided_),
@@ -663,7 +663,7 @@ sampler(positions_, indices_, primitiveWeights_, primitiveWeightsNormalAligned_,
     sampler.initialize(normalOffsetForBoundary_, solveDoubleSided);
 }
 
-void GPUUniformLineSegmentBoundarySampler::allocate(GPUContext& context)
+inline void GPUUniformLineSegmentBoundarySampler::allocate(GPUContext& context)
 {
     std::vector<float2> positionsData = toGPUVectorType<float2, Vector2>(sampler.getPositions());
     positions.allocate<float2>(context, false, positionsData);
@@ -679,7 +679,7 @@ void GPUUniformLineSegmentBoundarySampler::allocate(GPUContext& context)
     boundarySamplingMassNormalAligned = sampler.getBoundarySamplingMass(true);
 }
 
-void GPUUniformLineSegmentBoundarySampler::reallocate(GPUContext& context, float normalOffsetForBoundary)
+inline void GPUUniformLineSegmentBoundarySampler::reallocate(GPUContext& context, float normalOffsetForBoundary)
 {
     this->normalOffsetForBoundary = normalOffsetForBoundary;
     sampler.initialize(normalOffsetForBoundary, solveDoubleSided);
@@ -689,7 +689,7 @@ void GPUUniformLineSegmentBoundarySampler::reallocate(GPUContext& context, float
     boundarySamplingMassNormalAligned = sampler.getBoundarySamplingMass(true);
 }
 
-void GPUUniformLineSegmentBoundarySampler::setResources(const ShaderCursor& cursor, bool printLogs) const
+inline void GPUUniformLineSegmentBoundarySampler::setResources(const ShaderCursor& cursor, bool printLogs) const
 {
     cursor["positions"].setBinding(positions.buffer);
     cursor["normals"].setBinding(normals.buffer);
@@ -704,36 +704,36 @@ void GPUUniformLineSegmentBoundarySampler::setResources(const ShaderCursor& curs
     if (printLogs) printReflectionInfo(cursor, 10, getReflectionType());
 }
 
-std::string GPUUniformLineSegmentBoundarySampler::getReflectionType() const
+inline std::string GPUUniformLineSegmentBoundarySampler::getReflectionType() const
 {
     std::string arguments = geometricQueries->getReflectionType();
     return "UniformLineSegmentBoundarySampler<" + arguments + ">";
 }
 
-GPUBoundarySamplerType GPUUniformLineSegmentBoundarySampler::getSamplerType() const
+inline GPUBoundarySamplerType GPUUniformLineSegmentBoundarySampler::getSamplerType() const
 {
     return GPUBoundarySamplerType::UniformLineSegment;
 }
 
-float GPUUniformLineSegmentBoundarySampler::getNormalOffsetForBoundary() const
+inline float GPUUniformLineSegmentBoundarySampler::getNormalOffsetForBoundary() const
 {
     return normalOffsetForBoundary;
 }
 
-int GPUUniformLineSegmentBoundarySampler::getSampleCount(int nTotalSamples, bool boundaryNormalAlignedSamples) const
+inline int GPUUniformLineSegmentBoundarySampler::getSampleCount(int nTotalSamples, bool boundaryNormalAlignedSamples) const
 {
     return sampler.getSampleCount(nTotalSamples, boundaryNormalAlignedSamples);
 }
 
-GPUUniformTriangleBoundarySampler::GPUUniformTriangleBoundarySampler(std::shared_ptr<GPUGeometricQueries<3>> geometricQueries_,
-                                                                     const std::vector<Vector3>& positions_,
-                                                                     const std::vector<Vector3i>& indices_,
-                                                                     const std::vector<float>& primitiveWeights_,
-                                                                     const std::vector<float>& primitiveWeightsNormalAligned_,
-                                                                     std::function<bool(const Vector3&)> insideSolveRegion_,
-                                                                     float normalOffsetForBoundary_,
-                                                                     bool solveDoubleSided_,
-                                                                     bool computeWeightedNormals_):
+inline GPUUniformTriangleBoundarySampler::GPUUniformTriangleBoundarySampler(std::shared_ptr<GPUGeometricQueries<3>> geometricQueries_,
+                                                                            const std::vector<Vector3>& positions_,
+                                                                            const std::vector<Vector3i>& indices_,
+                                                                            const std::vector<float>& primitiveWeights_,
+                                                                            const std::vector<float>& primitiveWeightsNormalAligned_,
+                                                                            std::function<bool(const Vector3&)> insideSolveRegion_,
+                                                                            float normalOffsetForBoundary_,
+                                                                            bool solveDoubleSided_,
+                                                                            bool computeWeightedNormals_):
 geometricQueries(geometricQueries_),
 normalOffsetForBoundary(normalOffsetForBoundary_),
 solveDoubleSided(solveDoubleSided_),
@@ -745,7 +745,7 @@ sampler(positions_, indices_, primitiveWeights_, primitiveWeightsNormalAligned_,
     sampler.initialize(normalOffsetForBoundary_, solveDoubleSided);
 }
 
-void GPUUniformTriangleBoundarySampler::allocate(GPUContext& context)
+inline void GPUUniformTriangleBoundarySampler::allocate(GPUContext& context)
 {
     std::vector<float3> positionsData = toGPUVectorType<float3, Vector3>(sampler.getPositions());
     positions.allocate<float3>(context, false, positionsData);
@@ -761,7 +761,7 @@ void GPUUniformTriangleBoundarySampler::allocate(GPUContext& context)
     boundarySamplingMassNormalAligned = sampler.getBoundarySamplingMass(true);
 }
 
-void GPUUniformTriangleBoundarySampler::reallocate(GPUContext& context, float normalOffsetForBoundary)
+inline void GPUUniformTriangleBoundarySampler::reallocate(GPUContext& context, float normalOffsetForBoundary)
 {
     this->normalOffsetForBoundary = normalOffsetForBoundary;
     sampler.initialize(normalOffsetForBoundary, solveDoubleSided);
@@ -771,7 +771,7 @@ void GPUUniformTriangleBoundarySampler::reallocate(GPUContext& context, float no
     boundarySamplingMassNormalAligned = sampler.getBoundarySamplingMass(true);
 }
 
-void GPUUniformTriangleBoundarySampler::setResources(const ShaderCursor& cursor, bool printLogs) const
+inline void GPUUniformTriangleBoundarySampler::setResources(const ShaderCursor& cursor, bool printLogs) const
 {
     cursor["positions"].setBinding(positions.buffer);
     cursor["normals"].setBinding(normals.buffer);
@@ -786,33 +786,33 @@ void GPUUniformTriangleBoundarySampler::setResources(const ShaderCursor& cursor,
     if (printLogs) printReflectionInfo(cursor, 10, getReflectionType());
 }
 
-std::string GPUUniformTriangleBoundarySampler::getReflectionType() const
+inline std::string GPUUniformTriangleBoundarySampler::getReflectionType() const
 {
     std::string arguments = geometricQueries->getReflectionType();
     return "UniformTriangleBoundarySampler<" + arguments + ">";
 }
 
-GPUBoundarySamplerType GPUUniformTriangleBoundarySampler::getSamplerType() const
+inline GPUBoundarySamplerType GPUUniformTriangleBoundarySampler::getSamplerType() const
 {
     return GPUBoundarySamplerType::UniformTriangle;
 }
 
-float GPUUniformTriangleBoundarySampler::getNormalOffsetForBoundary() const
+inline float GPUUniformTriangleBoundarySampler::getNormalOffsetForBoundary() const
 {
     return normalOffsetForBoundary;
 }
 
-int GPUUniformTriangleBoundarySampler::getSampleCount(int nTotalSamples, bool boundaryNormalAlignedSamples) const
+inline int GPUUniformTriangleBoundarySampler::getSampleCount(int nTotalSamples, bool boundaryNormalAlignedSamples) const
 {
     return sampler.getSampleCount(nTotalSamples, boundaryNormalAlignedSamples);
 }
 
-std::shared_ptr<GPUBoundarySampler> createUniformBoundarySampler(std::shared_ptr<GPUGeometricQueries<2>> geometricQueries,
-                                                                 const std::vector<Vector2>& positions,
-                                                                 const std::vector<Vector2i>& indices,
-                                                                 std::function<bool(const Vector2&)> insideSolveRegion,
-                                                                 float normalOffsetForBoundary, bool solveDoubleSided,
-                                                                 bool computeWeightedNormals)
+inline std::shared_ptr<GPUBoundarySampler> createUniformBoundarySampler(std::shared_ptr<GPUGeometricQueries<2>> geometricQueries,
+                                                                        const std::vector<Vector2>& positions,
+                                                                        const std::vector<Vector2i>& indices,
+                                                                        std::function<bool(const Vector2&)> insideSolveRegion,
+                                                                        float normalOffsetForBoundary, bool solveDoubleSided,
+                                                                        bool computeWeightedNormals)
 {
     std::vector<float> constantPrimitiveWeights(indices.size(), 1.0f);
     return std::make_shared<GPUUniformLineSegmentBoundarySampler>(
@@ -821,13 +821,13 @@ std::shared_ptr<GPUBoundarySampler> createUniformBoundarySampler(std::shared_ptr
         solveDoubleSided, computeWeightedNormals);
 }
 
-std::shared_ptr<GPUBoundarySampler> createUniformBoundarySampler(std::shared_ptr<GPUGeometricQueries<2>> geometricQueries,
-                                                                 const std::vector<Vector2>& positions,
-                                                                 const std::vector<Vector2i>& indices,
-                                                                 const std::vector<float>& primitiveWeights,
-                                                                 std::function<bool(const Vector2&)> insideSolveRegion,
-                                                                 float normalOffsetForBoundary, bool solveDoubleSided,
-                                                                 bool computeWeightedNormals)
+inline std::shared_ptr<GPUBoundarySampler> createUniformBoundarySampler(std::shared_ptr<GPUGeometricQueries<2>> geometricQueries,
+                                                                        const std::vector<Vector2>& positions,
+                                                                        const std::vector<Vector2i>& indices,
+                                                                        const std::vector<float>& primitiveWeights,
+                                                                        std::function<bool(const Vector2&)> insideSolveRegion,
+                                                                        float normalOffsetForBoundary, bool solveDoubleSided,
+                                                                        bool computeWeightedNormals)
 {
     return std::make_shared<GPUUniformLineSegmentBoundarySampler>(
         geometricQueries, positions, indices, primitiveWeights,
@@ -835,14 +835,14 @@ std::shared_ptr<GPUBoundarySampler> createUniformBoundarySampler(std::shared_ptr
         solveDoubleSided, computeWeightedNormals);
 }
 
-std::shared_ptr<GPUBoundarySampler> createUniformBoundarySampler(std::shared_ptr<GPUGeometricQueries<2>> geometricQueries,
-                                                                 const std::vector<Vector2>& positions,
-                                                                 const std::vector<Vector2i>& indices,
-                                                                 const std::vector<float>& primitiveWeights,
-                                                                 const std::vector<float>& primitiveWeightsNormalAligned,
-                                                                 std::function<bool(const Vector2&)> insideSolveRegion,
-                                                                 float normalOffsetForBoundary, bool solveDoubleSided,
-                                                                 bool computeWeightedNormals)
+inline std::shared_ptr<GPUBoundarySampler> createUniformBoundarySampler(std::shared_ptr<GPUGeometricQueries<2>> geometricQueries,
+                                                                        const std::vector<Vector2>& positions,
+                                                                        const std::vector<Vector2i>& indices,
+                                                                        const std::vector<float>& primitiveWeights,
+                                                                        const std::vector<float>& primitiveWeightsNormalAligned,
+                                                                        std::function<bool(const Vector2&)> insideSolveRegion,
+                                                                        float normalOffsetForBoundary, bool solveDoubleSided,
+                                                                        bool computeWeightedNormals)
 {
     return std::make_shared<GPUUniformLineSegmentBoundarySampler>(
         geometricQueries, positions, indices, primitiveWeights,
@@ -850,12 +850,12 @@ std::shared_ptr<GPUBoundarySampler> createUniformBoundarySampler(std::shared_ptr
         normalOffsetForBoundary, solveDoubleSided, computeWeightedNormals);
 }
 
-std::shared_ptr<GPUBoundarySampler> createUniformBoundarySampler(std::shared_ptr<GPUGeometricQueries<3>> geometricQueries,
-                                                                 const std::vector<Vector3>& positions,
-                                                                 const std::vector<Vector3i>& indices,
-                                                                 std::function<bool(const Vector3&)> insideSolveRegion,
-                                                                 float normalOffsetForBoundary, bool solveDoubleSided,
-                                                                 bool computeWeightedNormals)
+inline std::shared_ptr<GPUBoundarySampler> createUniformBoundarySampler(std::shared_ptr<GPUGeometricQueries<3>> geometricQueries,
+                                                                        const std::vector<Vector3>& positions,
+                                                                        const std::vector<Vector3i>& indices,
+                                                                        std::function<bool(const Vector3&)> insideSolveRegion,
+                                                                        float normalOffsetForBoundary, bool solveDoubleSided,
+                                                                        bool computeWeightedNormals)
 {
     std::vector<float> constantPrimitiveWeights(indices.size(), 1.0f);
     return std::make_shared<GPUUniformTriangleBoundarySampler>(
@@ -864,13 +864,13 @@ std::shared_ptr<GPUBoundarySampler> createUniformBoundarySampler(std::shared_ptr
         solveDoubleSided, computeWeightedNormals);
 }
 
-std::shared_ptr<GPUBoundarySampler> createUniformBoundarySampler(std::shared_ptr<GPUGeometricQueries<3>> geometricQueries,
-                                                                 const std::vector<Vector3>& positions,
-                                                                 const std::vector<Vector3i>& indices,
-                                                                 const std::vector<float>& primitiveWeights,
-                                                                 std::function<bool(const Vector3&)> insideSolveRegion,
-                                                                 float normalOffsetForBoundary, bool solveDoubleSided,
-                                                                 bool computeWeightedNormals)
+inline std::shared_ptr<GPUBoundarySampler> createUniformBoundarySampler(std::shared_ptr<GPUGeometricQueries<3>> geometricQueries,
+                                                                        const std::vector<Vector3>& positions,
+                                                                        const std::vector<Vector3i>& indices,
+                                                                        const std::vector<float>& primitiveWeights,
+                                                                        std::function<bool(const Vector3&)> insideSolveRegion,
+                                                                        float normalOffsetForBoundary, bool solveDoubleSided,
+                                                                        bool computeWeightedNormals)
 {
     return std::make_shared<GPUUniformTriangleBoundarySampler>(
         geometricQueries, positions, indices, primitiveWeights,
@@ -878,14 +878,14 @@ std::shared_ptr<GPUBoundarySampler> createUniformBoundarySampler(std::shared_ptr
         solveDoubleSided, computeWeightedNormals);
 }
 
-std::shared_ptr<GPUBoundarySampler> createUniformBoundarySampler(std::shared_ptr<GPUGeometricQueries<3>> geometricQueries,
-                                                                 const std::vector<Vector3>& positions,
-                                                                 const std::vector<Vector3i>& indices,
-                                                                 const std::vector<float>& primitiveWeights,
-                                                                 const std::vector<float>& primitiveWeightsNormalAligned,
-                                                                 std::function<bool(const Vector3&)> insideSolveRegion,
-                                                                 float normalOffsetForBoundary, bool solveDoubleSided,
-                                                                 bool computeWeightedNormals)
+inline std::shared_ptr<GPUBoundarySampler> createUniformBoundarySampler(std::shared_ptr<GPUGeometricQueries<3>> geometricQueries,
+                                                                        const std::vector<Vector3>& positions,
+                                                                        const std::vector<Vector3i>& indices,
+                                                                        const std::vector<float>& primitiveWeights,
+                                                                        const std::vector<float>& primitiveWeightsNormalAligned,
+                                                                        std::function<bool(const Vector3&)> insideSolveRegion,
+                                                                        float normalOffsetForBoundary, bool solveDoubleSided,
+                                                                        bool computeWeightedNormals)
 {
     return std::make_shared<GPUUniformTriangleBoundarySampler>(
         geometricQueries, positions, indices, primitiveWeights,
